@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(test_shooting))]
 public class FPSController : MonoBehaviour {
 
     [SerializeField]
@@ -13,7 +14,9 @@ public class FPSController : MonoBehaviour {
     [SerializeField]
     private float jumpForce = 5f;
     [SerializeField]
-    private float multiplier = 4f;
+    private float speedMultiplier = 4f;
+    [SerializeField]
+    private float jumpMultiplier = 4f;
 
 
     CharacterController player;
@@ -27,6 +30,7 @@ public class FPSController : MonoBehaviour {
     float rotY;
 
     private bool hasJumped;
+    bool highJump;
 
     bool sprinting;
     bool locked;
@@ -37,6 +41,7 @@ public class FPSController : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         locked = true;
+        highJump = false;
     }
 	
 	// Update is called once per frame
@@ -51,23 +56,41 @@ public class FPSController : MonoBehaviour {
         if (Input.GetButtonDown("Jump"))
         {
             hasJumped = true;
+            if (sprinting == true)
+            {
+                sprinting = false;
+                movementSpeed = movementSpeed - speedMultiplier;
+            }
         }
 
         ApplyGravity();
 
     }
-    
+
+    void JumpReset()
+    {
+        jumpForce = jumpForce - jumpMultiplier;
+        highJump = false;
+    }
+
+    public void HighJump()
+    {
+        jumpForce = jumpForce + jumpMultiplier;
+        highJump = true;
+        Invoke("JumpReset", 10f); 
+    }
+
     void Sprint()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && sprinting == false)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && sprinting == false && player.isGrounded == true)
         {
-            movementSpeed = movementSpeed + multiplier;
+            movementSpeed = movementSpeed + speedMultiplier;
             sprinting = true;
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift) && sprinting == true)
         {
-            movementSpeed = movementSpeed - multiplier;
+            movementSpeed = movementSpeed - speedMultiplier;
             sprinting = false;
         }
     }
@@ -104,7 +127,7 @@ public class FPSController : MonoBehaviour {
         else
         {
             vertVelocity += Physics.gravity.y * Time.deltaTime;
-            vertVelocity = Mathf.Clamp(vertVelocity, -50, jumpForce);
+            vertVelocity = Mathf.Clamp(vertVelocity, -999999, jumpForce);
             hasJumped = false;
         }
     }

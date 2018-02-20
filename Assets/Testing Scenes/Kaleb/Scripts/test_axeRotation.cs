@@ -1,17 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class test_axeRotation : MonoBehaviour {
+public class test_axeRotation : NetworkBehaviour {
 
     [SerializeField]
     private float speed;
 
-    bool hit;
+    bool hitActive;
 
     void Awake()
     {
-        Destroy(gameObject,20f);
+        Destroy(gameObject,10f);
+        Invoke("HitActive", 0.1f);
     }
 
     // Update is called once per frame
@@ -25,20 +27,18 @@ public class test_axeRotation : MonoBehaviour {
         transform.Rotate(speed * Time.deltaTime, 0, 0);
     }
 
-    void HitReset()
+    void HitActive()
     {
-        hit = false;
+        hitActive = true;
     }
 
     void OnCollisionEnter(Collision c)
     {
-        if (c.gameObject.tag == "Enemies" && hit == false)
+        if (c.gameObject.tag == "Player" && hitActive == true)
         {
             print("hit");
-            Destroy(c.gameObject);
+            //Destroy(c.gameObject);
             Destroy(gameObject);
-            hit = true;
-            Invoke("HitReset", 0.2f);
         }
 
         else if (c.gameObject.gameObject.layer == LayerMask.NameToLayer("Default"))

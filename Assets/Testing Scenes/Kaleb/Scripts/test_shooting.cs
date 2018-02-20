@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class test_shooting : MonoBehaviour {
+[RequireComponent(typeof(FPSController))]
+public class test_shooting : NetworkBehaviour {
 
+    #region Data Information
     [SerializeField]
     private float delay;
     [SerializeField]
@@ -16,18 +19,24 @@ public class test_shooting : MonoBehaviour {
     private GameObject spawnPoint;
     [SerializeField]
     private GameObject axe;
-
+    [SerializeField]
+    private FPSController _jump;
+    
     bool thrown;
 
     bool noCD;
 
     bool triShot;
 
+    bool immune;
+#endregion
     void Start()
     {
         thrown = false;
         noCD = false;
         triShot = false;
+        immune = false;
+        FPSController _jump = gameObject.GetComponent<FPSController>();
     }
 
     void Update()
@@ -36,7 +45,7 @@ public class test_shooting : MonoBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
             {
-                Fire();
+                CmdFire();
             }
         }
 
@@ -44,13 +53,13 @@ public class test_shooting : MonoBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
             {
-                ThreeFire();
+                CmdThreeFire();
             }
         }
-
     }
 
-    void Fire()
+    [Command]
+    void CmdFire()
     {
         if (noCD == false)
         {
@@ -59,6 +68,7 @@ public class test_shooting : MonoBehaviour {
             bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
             thrown = true;
             Invoke("AxeReset", reset);
+            NetworkServer.Spawn(axe);
         }
 
         else if (noCD == true)
@@ -66,10 +76,12 @@ public class test_shooting : MonoBehaviour {
             axe.SetActive(false);
             Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
             bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
+            NetworkServer.Spawn(axe);
         }
     }
 
-    void ThreeFire()
+    [Command]
+    void CmdThreeFire()
     {
         axe.SetActive(false);
         Rigidbody bulletClone2 = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * 1.2f, spawnPoint.transform.rotation);
@@ -80,10 +92,17 @@ public class test_shooting : MonoBehaviour {
         bulletClone3.velocity = spawnPoint.transform.forward * bulletSpeed;
         thrown = true;
         Invoke("AxeReset", reset);
+        NetworkServer.Spawn(axe);
+    }
+
+    void Immunity()
+    {
+        gameObject.tag = "Untagged";
     }
 
     void CoolDownReset()
     {
+        AxeReset();
         noCD = false;
     }
 
@@ -96,6 +115,12 @@ public class test_shooting : MonoBehaviour {
     void TriReset()
     {
         triShot = false;
+    }
+
+    void ImmunityReset()
+    {
+        gameObject.tag = "Player";
+        immune = false;
     }
 
     void OnTriggerEnter(Collider b)
@@ -114,6 +139,22 @@ public class test_shooting : MonoBehaviour {
             print("Tripple Threat");
             Destroy(b.gameObject);
             Invoke("TriReset", delay);
+        }
+
+        if (b.gameObject.gameObject.layer == LayerMask.NameToLayer("HighJump"))
+        {
+            _jump.HighJump();
+            print("Higher Jumping");
+            Destroy(b.gameObject);
+        }
+
+        if (b.gameObject.gameObject.layer == LayerMask.NameToLayer("Immunity"))
+        {
+            immune = true;
+            Immunity();
+            print("Now Immune");
+            Destroy(b.gameObject);
+            Invoke("ImmunityReset", delay);
         }
     }
 }
