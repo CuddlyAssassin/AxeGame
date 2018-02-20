@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class test_axeRotation : NetworkBehaviour {
+public class test_axeRotation : MonoBehaviour {
 
     [SerializeField]
     private float speed;

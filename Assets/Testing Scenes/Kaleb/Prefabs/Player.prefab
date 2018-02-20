@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 114371392068549022}
   - component: {fileID: 114473944080931990}
   - component: {fileID: 114195590309940828}
-  - component: {fileID: 114506936473691430}
+  - component: {fileID: 114782630940099870}
   m_Layer: 13
   m_Name: Player
   m_TagString: Player
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 4225955721941920}
   - component: {fileID: 33440314771518312}
   - component: {fileID: 23382660171505692}
-  - component: {fileID: 114763022894262508}
+  - component: {fileID: 114431635851722392}
   m_Layer: 13
   m_Name: Axe
   m_TagString: Untagged
@@ -379,6 +379,38 @@ MonoBehaviour:
   - {fileID: 114635401528312362}
   - {fileID: 20637700745408976}
   - {fileID: 81704500124177406}
+--- !u!114 &114431635851722392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1573011911144324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 47
+    i1: 34
+    i2: 154
+    i3: 225
+    i4: 64
+    i5: 246
+    i6: 242
+    i7: 212
+    i8: 41
+    i9: 62
+    i10: 150
+    i11: 16
+    i12: 39
+    i13: 158
+    i14: 254
+    i15: 178
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114447690634669730
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -432,18 +464,6 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
---- !u!114 &114506936473691430
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1334295179836350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -837897634, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_VisualizerPrefab: {fileID: 1573011911144324}
 --- !u!114 &114635401528312362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -462,38 +482,25 @@ MonoBehaviour:
   speedMultiplier: 4
   jumpMultiplier: 6
   cam: {fileID: 1148044066093986}
---- !u!114 &114763022894262508
+--- !u!114 &114782630940099870
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1573011911144324}
+  m_GameObject: {fileID: 1334295179836350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Script: {fileID: -1267208747, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 47
-    i1: 34
-    i2: 154
-    i3: 225
-    i4: 64
-    i5: 246
-    i6: 242
-    i7: 212
-    i8: 41
-    i9: 62
-    i10: 150
-    i11: 16
-    i12: 39
-    i13: 158
-    i14: 254
-    i15: 178
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_Target: {fileID: 4225955721941920}
+  m_ChildIndex: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_MovementThreshold: 0.001
+  m_InterpolateRotation: 0.3
+  m_InterpolateMovement: 0
 --- !u!114 &114877941838471254
 MonoBehaviour:
   m_ObjectHideFlags: 1

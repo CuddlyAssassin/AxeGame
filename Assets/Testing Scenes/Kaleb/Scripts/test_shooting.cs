@@ -63,20 +63,18 @@ public class test_shooting : NetworkBehaviour {
     {
         if (noCD == false)
         {
-            axe.SetActive(false);
-            Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
+            //axe.SetActive(false);
+            Rigidbody bulletClone = (Rigidbody)Network.Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation, 1);
             bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
             thrown = true;
             Invoke("AxeReset", reset);
-            NetworkServer.Spawn(axe);
         }
 
         else if (noCD == true)
         {
             axe.SetActive(false);
-            Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
-            bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
-            NetworkServer.Spawn(axe);
+            Rigidbody bulletClone = (Rigidbody)Network.Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation, 1);
+            bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;;
         }
     }
 
@@ -84,9 +82,9 @@ public class test_shooting : NetworkBehaviour {
     void CmdThreeFire()
     {
         axe.SetActive(false);
-        Rigidbody bulletClone2 = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * 1.2f, spawnPoint.transform.rotation);
-        Rigidbody bulletClone3 = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * -1.2f, spawnPoint.transform.rotation);
-        Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
+        Rigidbody bulletClone2 = (Rigidbody)Network.Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * 1.2f, spawnPoint.transform.rotation,1);
+        Rigidbody bulletClone3 = (Rigidbody)Network.Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * -1.2f, spawnPoint.transform.rotation,1);
+        Rigidbody bulletClone = (Rigidbody)Network.Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation,1);
         bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
         bulletClone2.velocity = spawnPoint.transform.forward * bulletSpeed;
         bulletClone3.velocity = spawnPoint.transform.forward * bulletSpeed;
