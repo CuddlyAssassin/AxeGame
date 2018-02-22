@@ -518,6 +518,7 @@ MonoBehaviour:
   bullet: {fileID: 54667351761826936, guid: 16a15d753bff36049b83d24fd346000a, type: 2}
   spawnPoint: {fileID: 1515095039814242}
   axe: {fileID: 1573011911144324}
+  axeHoming: {fileID: 54093719854427956, guid: eb9ef07ea1d32c048b8bc1e5a0c62992, type: 2}
   _jump: {fileID: 114635401528312362}
 --- !u!124 &124158402975421644
 Behaviour:

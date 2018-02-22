@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
 [RequireComponent(typeof(FPSController))]
-public class test_shooting : NetworkBehaviour {
+public class test_shooting : MonoBehaviour {
 
     #region Data Information
     [SerializeField]
@@ -20,15 +19,15 @@ public class test_shooting : NetworkBehaviour {
     [SerializeField]
     private GameObject axe;
     [SerializeField]
+    private Rigidbody axeHoming;
+    [SerializeField]
     private FPSController _jump;
-    
+
     bool thrown;
-
     bool noCD;
-
     bool triShot;
-
     bool immune;
+    bool homing;
 #endregion
     void Start()
     {
@@ -36,16 +35,17 @@ public class test_shooting : NetworkBehaviour {
         noCD = false;
         triShot = false;
         immune = false;
+        homing = false;
         FPSController _jump = gameObject.GetComponent<FPSController>();
     }
 
     void Update()
     {
-        if (triShot == false)
+        if (triShot == false && homing == false)
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
             {
-                CmdFire();
+                Fire();
             }
         }
 
@@ -53,18 +53,25 @@ public class test_shooting : NetworkBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
             {
-                CmdThreeFire();
+                ThreeFire();
+            }
+        }
+
+        if (homing == true)
+        {
+            if (Input.GetKey(KeyCode.Mouse0) && thrown == false)
+            {
+                HomingFire();
             }
         }
     }
 
-    [Command]
-    void CmdFire()
+    void Fire()
     {
         if (noCD == false)
         {
-            //axe.SetActive(false);
-            Rigidbody bulletClone = (Rigidbody)Network.Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation, 1);
+            axe.SetActive(false);
+            Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
             bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
             thrown = true;
             Invoke("AxeReset", reset);
@@ -73,24 +80,32 @@ public class test_shooting : NetworkBehaviour {
         else if (noCD == true)
         {
             axe.SetActive(false);
-            Rigidbody bulletClone = (Rigidbody)Network.Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation, 1);
-            bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;;
+            Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
+            bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
         }
     }
 
-    [Command]
-    void CmdThreeFire()
+    
+    void ThreeFire()
     {
         axe.SetActive(false);
-        Rigidbody bulletClone2 = (Rigidbody)Network.Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * 1.2f, spawnPoint.transform.rotation,1);
-        Rigidbody bulletClone3 = (Rigidbody)Network.Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * -1.2f, spawnPoint.transform.rotation,1);
-        Rigidbody bulletClone = (Rigidbody)Network.Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation,1);
+        Rigidbody bulletClone2 = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * 1.2f, spawnPoint.transform.rotation);
+        Rigidbody bulletClone3 = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * -1.2f, spawnPoint.transform.rotation);
+        Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
         bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
         bulletClone2.velocity = spawnPoint.transform.forward * bulletSpeed;
         bulletClone3.velocity = spawnPoint.transform.forward * bulletSpeed;
         thrown = true;
         Invoke("AxeReset", reset);
-        NetworkServer.Spawn(axe);
+    }
+
+    void HomingFire()
+    {
+        axe.SetActive(false);
+        Rigidbody homingClone = (Rigidbody)Instantiate(axeHoming, spawnPoint.transform.position, spawnPoint.transform.rotation);
+        //bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
+        thrown = true;
+        Invoke("AxeReset", reset);
     }
 
     void Immunity()
@@ -98,6 +113,7 @@ public class test_shooting : NetworkBehaviour {
         gameObject.tag = "Untagged";
     }
 
+    #region Reset Codes
     void CoolDownReset()
     {
         AxeReset();
@@ -121,6 +137,14 @@ public class test_shooting : NetworkBehaviour {
         immune = false;
     }
 
+    void HomingReset()
+    {
+        homing = false;
+        gameObject.tag = "Player";
+    }
+    #endregion
+
+    #region Triggers
     void OnTriggerEnter(Collider b)
     {
         if (b.gameObject.gameObject.layer == LayerMask.NameToLayer("NoCoolDown"))
@@ -154,5 +178,15 @@ public class test_shooting : NetworkBehaviour {
             Destroy(b.gameObject);
             Invoke("ImmunityReset", delay);
         }
+
+        if (b.gameObject.gameObject.layer == LayerMask.NameToLayer("Homing"))
+        {
+            homing = true;
+            gameObject.tag = "Target";
+            print("Homing Axes");
+            Destroy(b.gameObject);
+            Invoke("HomingReset", delay);
+        }
     }
+    #endregion
 }

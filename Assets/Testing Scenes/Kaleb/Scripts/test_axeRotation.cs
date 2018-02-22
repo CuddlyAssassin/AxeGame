@@ -36,6 +36,13 @@ public class test_axeRotation : MonoBehaviour {
         if (c.gameObject.tag == "Player" && hitActive == true)
         {
             print("hit");
+            Destroy(c.gameObject);
+            Destroy(gameObject);
+        }
+
+        if (c.gameObject.tag == "Target" && hitActive == true)
+        {
+            print("hit");
             //Destroy(c.gameObject);
             Destroy(gameObject);
         }
