@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Target
+  - SpawnerTS
+  - SpawnerNCD
+  - SpawnerHJ
+  - SpawnerI
+  - SpawnerL
+  - SpawnerRPU
   layers:
   - Default
   - TransparentFX
