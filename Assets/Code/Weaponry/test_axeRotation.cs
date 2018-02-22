@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class test_axeRotation : NetworkBehaviour {
+public class test_axeRotation : MonoBehaviour {
 
     [SerializeField]
     private float speed;
@@ -49,9 +48,9 @@ public class test_axeRotation : NetworkBehaviour {
 
     void OnTriggerEnter(Collider b)
     {
-        if (b.gameObject.gameObject.tag == "Target")
+        if (b.gameObject.gameObject.tag == "PickUp")
         {
-            //Destroy(b.gameObject);
+            Destroy(b.gameObject);
             Destroy(gameObject);
         }
     }

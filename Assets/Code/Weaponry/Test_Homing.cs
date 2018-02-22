@@ -14,6 +14,8 @@ public class Test_Homing : MonoBehaviour {
 
     void Start()
     {
+        Destroy(gameObject, 10f);
+
         _target = GameObject.FindWithTag("Player");
         if (_target == null)
             Destroy(gameObject);

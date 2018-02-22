@@ -50,8 +50,8 @@ public class test_shooting : NetworkBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
             {
-                RpcFire();
-                CmdFire();
+                Fire();
+                //CmdFire();
             }
         }
 
@@ -59,8 +59,8 @@ public class test_shooting : NetworkBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
             {
-                RpcThreeFire();
-                CmdTri();
+                ThreeFire();
+                //CmdTri();
             }
         }
 
@@ -68,14 +68,14 @@ public class test_shooting : NetworkBehaviour {
         {
             if (Input.GetKey(KeyCode.Mouse0) && thrown == false)
             {
-                RpcHomingFire();
-                CmdHoming();
+                HomingFire();
+                //CmdHoming();
             }
         }
     }
 
-    [ClientRpc]
-    void RpcFire()
+    [Client]
+    void Fire()
     {
         if (noCD == false)
         {
@@ -94,42 +94,28 @@ public class test_shooting : NetworkBehaviour {
         }
     }
 
-    [Command]
-    void CmdFire()
-    {
-        if (noCD == false)
-        {
-            axe.SetActive(false);
-            Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
-            bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
-            thrown = true;
-            Invoke("AxeReset", reset);
-        }
+    //[Command]
+    //void CmdFire()
+    //{
+    //    if (noCD == false)
+    //    {
+    //        axe.SetActive(false);
+    //        Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
+    //        bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
+    //        thrown = true;
+    //        Invoke("AxeReset", reset);
+    //    }
 
-        else if (noCD == true)
-        {
-            axe.SetActive(false);
-            Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
-            bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
-        }
-    }
+    //    else if (noCD == true)
+    //    {
+    //        axe.SetActive(false);
+    //        Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
+    //        bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
+    //    }
+    //}
 
-    [ClientRpc]
-    void RpcThreeFire()
-    {
-        axe.SetActive(false);
-        Rigidbody bulletClone2 = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * 1.2f, spawnPoint.transform.rotation);
-        Rigidbody bulletClone3 = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * -1.2f, spawnPoint.transform.rotation);
-        Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
-        bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
-        bulletClone2.velocity = spawnPoint.transform.forward * bulletSpeed;
-        bulletClone3.velocity = spawnPoint.transform.forward * bulletSpeed;
-        thrown = true;
-        Invoke("AxeReset", reset);
-    }
-
-    [Command]
-    void CmdTri()
+    [Client]
+    void ThreeFire()
     {
         axe.SetActive(false);
         Rigidbody bulletClone2 = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * 1.2f, spawnPoint.transform.rotation);
@@ -142,25 +128,37 @@ public class test_shooting : NetworkBehaviour {
         Invoke("AxeReset", reset);
     }
 
-    [ClientRpc]
-    void RpcHomingFire()
+    //[Command]
+    //void CmdTri()
+    //{
+    //    axe.SetActive(false);
+    //    Rigidbody bulletClone2 = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * 1.2f, spawnPoint.transform.rotation);
+    //    Rigidbody bulletClone3 = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * -1.2f, spawnPoint.transform.rotation);
+    //    Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
+    //    bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
+    //    bulletClone2.velocity = spawnPoint.transform.forward * bulletSpeed;
+    //    bulletClone3.velocity = spawnPoint.transform.forward * bulletSpeed;
+    //    thrown = true;
+    //    Invoke("AxeReset", reset);
+    //}
+
+    [Client]
+    void HomingFire()
     {
         axe.SetActive(false);
         Rigidbody homingClone = (Rigidbody)Instantiate(axeHoming, spawnPoint.transform.position, spawnPoint.transform.rotation);
-        //bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
         thrown = true;
         Invoke("AxeReset", reset);
     }
 
-    [Command]
-    void CmdHoming()
-    {
-        axe.SetActive(false);
-        Rigidbody homingClone = (Rigidbody)Instantiate(axeHoming, spawnPoint.transform.position, spawnPoint.transform.rotation);
-        //bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
-        thrown = true;
-        Invoke("AxeReset", reset);
-    }
+    //[Command]
+    //void CmdHoming()
+    //{
+    //    axe.SetActive(false);
+    //    Rigidbody homingClone = (Rigidbody)Instantiate(axeHoming, spawnPoint.transform.position, spawnPoint.transform.rotation);
+    //    thrown = true;
+    //    Invoke("AxeReset", reset);
+    //}
 
     void Immunity()
     {
