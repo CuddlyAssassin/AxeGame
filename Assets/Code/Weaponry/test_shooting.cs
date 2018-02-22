@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+[RequireComponent(typeof(PlayerHealth))]
 [RequireComponent(typeof(FPSController))]
 public class test_shooting : NetworkBehaviour {
 
@@ -17,15 +18,17 @@ public class test_shooting : NetworkBehaviour {
     [SerializeField]
     private float reset;
     [SerializeField]
-    private Rigidbody bullet;
+    private GameObject bullet;
     [SerializeField]
     private GameObject spawnPoint;
     [SerializeField]
     private GameObject axe;
     [SerializeField]
-    private Rigidbody axeHoming;
+    private GameObject axeHoming;
     [SerializeField]
     private FPSController _jump;
+    [SerializeField]
+    private PlayerHealth _hp;
 
     bool thrown;
     bool noCD;
@@ -42,6 +45,7 @@ public class test_shooting : NetworkBehaviour {
         immune = false;
         homing = false;
         FPSController _jump = gameObject.GetComponent<FPSController>();
+        PlayerHealth _hp = gameObject.GetComponent<PlayerHealth>();
     }
 
     void Update()
@@ -51,7 +55,11 @@ public class test_shooting : NetworkBehaviour {
             if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
             {
                 Fire();
-                //CmdFire();
+
+                if (!isLocalPlayer)
+                    return;
+
+                    CmdFire();
             }
         }
 
@@ -60,7 +68,11 @@ public class test_shooting : NetworkBehaviour {
             if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
             {
                 ThreeFire();
-                //CmdTri();
+
+                if (!isLocalPlayer)
+                    return;
+
+                CmdTri();
             }
         }
 
@@ -69,9 +81,14 @@ public class test_shooting : NetworkBehaviour {
             if (Input.GetKey(KeyCode.Mouse0) && thrown == false)
             {
                 HomingFire();
-                //CmdHoming();
+
+                if (!isLocalPlayer)
+                    return;
+
+                CmdHoming();
             }
         }
+
     }
 
     [Client]
@@ -80,8 +97,9 @@ public class test_shooting : NetworkBehaviour {
         if (noCD == false)
         {
             axe.SetActive(false);
-            Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
-            bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
+            GameObject bulletClone = Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
+            Rigidbody force = bulletClone.GetComponent<Rigidbody>();
+            force.velocity = spawnPoint.transform.forward * bulletSpeed;
             thrown = true;
             Invoke("AxeReset", reset);
         }
@@ -89,80 +107,100 @@ public class test_shooting : NetworkBehaviour {
         else if (noCD == true)
         {
             axe.SetActive(false);
-            Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
-            bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
+            GameObject bulletClone = Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
+            Rigidbody force = bulletClone.GetComponent<Rigidbody>();
+            force.velocity = spawnPoint.transform.forward * bulletSpeed;
         }
     }
 
-    //[Command]
-    //void CmdFire()
-    //{
-    //    if (noCD == false)
-    //    {
-    //        axe.SetActive(false);
-    //        Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
-    //        bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
-    //        thrown = true;
-    //        Invoke("AxeReset", reset);
-    //    }
+    [Command]
+    void CmdFire()
+    {
+        if (noCD == false)
+        {
+            axe.SetActive(false);
+            GameObject bulletClone = Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
+            NetworkServer.Spawn(bulletClone);
+            Rigidbody force = bulletClone.GetComponent<Rigidbody>();
+            force.velocity = spawnPoint.transform.forward * bulletSpeed;
+            thrown = true;
+            Invoke("AxeReset", reset);
+        }
 
-    //    else if (noCD == true)
-    //    {
-    //        axe.SetActive(false);
-    //        Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
-    //        bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
-    //    }
-    //}
+        else if (noCD == true)
+        {
+            axe.SetActive(false);
+            GameObject bulletClone = Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
+            NetworkServer.Spawn(bulletClone);
+            Rigidbody force = bulletClone.GetComponent<Rigidbody>();
+            force.velocity = spawnPoint.transform.forward * bulletSpeed;
+        }
+    }
+
 
     [Client]
     void ThreeFire()
     {
         axe.SetActive(false);
-        Rigidbody bulletClone2 = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * 1.2f, spawnPoint.transform.rotation);
-        Rigidbody bulletClone3 = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * -1.2f, spawnPoint.transform.rotation);
-        Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
-        bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
-        bulletClone2.velocity = spawnPoint.transform.forward * bulletSpeed;
-        bulletClone3.velocity = spawnPoint.transform.forward * bulletSpeed;
+        GameObject bulletClone2 = (GameObject)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * 1.2f, spawnPoint.transform.rotation);
+        Rigidbody force2 = bulletClone2.GetComponent<Rigidbody>();
+        force2.velocity = spawnPoint.transform.forward * bulletSpeed;
+        GameObject bulletClone3 = (GameObject)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * -1.2f, spawnPoint.transform.rotation);
+        Rigidbody force3 = bulletClone3.GetComponent<Rigidbody>();
+        force3.velocity = spawnPoint.transform.forward * bulletSpeed;
+        GameObject bulletClone = (GameObject)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
+        Rigidbody force = bulletClone.GetComponent<Rigidbody>();
+        force.velocity = spawnPoint.transform.forward * bulletSpeed;
+
         thrown = true;
         Invoke("AxeReset", reset);
     }
 
-    //[Command]
-    //void CmdTri()
-    //{
-    //    axe.SetActive(false);
-    //    Rigidbody bulletClone2 = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * 1.2f, spawnPoint.transform.rotation);
-    //    Rigidbody bulletClone3 = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * -1.2f, spawnPoint.transform.rotation);
-    //    Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
-    //    bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
-    //    bulletClone2.velocity = spawnPoint.transform.forward * bulletSpeed;
-    //    bulletClone3.velocity = spawnPoint.transform.forward * bulletSpeed;
-    //    thrown = true;
-    //    Invoke("AxeReset", reset);
-    //}
+    [Command]
+    void CmdTri()
+    {
+        axe.SetActive(false);
+        GameObject bulletClone2 = (GameObject)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * 1.2f, spawnPoint.transform.rotation);
+        NetworkServer.Spawn(bulletClone2);
+        Rigidbody force2 = bulletClone2.GetComponent<Rigidbody>();
+        force2.velocity = spawnPoint.transform.forward * bulletSpeed;
+        GameObject bulletClone3 = (GameObject)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * -1.2f, spawnPoint.transform.rotation);
+        NetworkServer.Spawn(bulletClone3);
+        Rigidbody force3 = bulletClone3.GetComponent<Rigidbody>();
+        force3.velocity = spawnPoint.transform.forward * bulletSpeed;
+        GameObject bulletClone = (GameObject)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
+        NetworkServer.Spawn(bulletClone);
+        Rigidbody force = bulletClone.GetComponent<Rigidbody>();
+        force.velocity = spawnPoint.transform.forward * bulletSpeed;
+
+        thrown = true;
+        Invoke("AxeReset", reset);
+    }
 
     [Client]
     void HomingFire()
     {
         axe.SetActive(false);
-        Rigidbody homingClone = (Rigidbody)Instantiate(axeHoming, spawnPoint.transform.position, spawnPoint.transform.rotation);
+        GameObject homingClone = (GameObject)Instantiate(axeHoming, spawnPoint.transform.position, spawnPoint.transform.rotation);
+        NetworkServer.Spawn(homingClone);
         thrown = true;
         Invoke("AxeReset", reset);
     }
 
-    //[Command]
-    //void CmdHoming()
-    //{
-    //    axe.SetActive(false);
-    //    Rigidbody homingClone = (Rigidbody)Instantiate(axeHoming, spawnPoint.transform.position, spawnPoint.transform.rotation);
-    //    thrown = true;
-    //    Invoke("AxeReset", reset);
-    //}
+    [Command]
+    void CmdHoming()
+    {
+        axe.SetActive(false);
+        GameObject homingClone = (GameObject)Instantiate(axeHoming, spawnPoint.transform.position, spawnPoint.transform.rotation);
+        NetworkServer.Spawn(homingClone);
+        thrown = true;
+        Invoke("AxeReset", reset);
+    }
 
     void Immunity()
     {
         gameObject.tag = "Untagged";
+        _hp.Immunity();
     }
 
     #region Reset Codes
@@ -186,6 +224,7 @@ public class test_shooting : NetworkBehaviour {
     void ImmunityReset()
     {
         gameObject.tag = "Player";
+        _hp.Immunity();
         immune = false;
     }
 
