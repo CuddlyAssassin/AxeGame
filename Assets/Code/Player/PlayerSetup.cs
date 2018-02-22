@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
+[RequireComponent(typeof(PlayerManager))]
+[RequireComponent(typeof(PlayerHealth))]
 public class PlayerSetup : NetworkBehaviour {
 
     [SerializeField]
@@ -24,6 +26,18 @@ public class PlayerSetup : NetworkBehaviour {
                 sceneCamera.gameObject.SetActive(false);
             }
         }
+
+        GetComponent<PlayerHealth>().Setup();
+    }
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+
+        string _netID = GetComponent<NetworkIdentity>().netId.ToString();
+        PlayerManager _player = GetComponent<PlayerManager>();
+
+        TheGameManager.RetisterPlayer(_netID, _player);
     }
 
     void OnDisable()
@@ -32,6 +46,8 @@ public class PlayerSetup : NetworkBehaviour {
         {
             sceneCamera.gameObject.SetActive(true);
         }
+
+        TheGameManager.UnRegisterPlayer(transform.name);
     }
 
 }

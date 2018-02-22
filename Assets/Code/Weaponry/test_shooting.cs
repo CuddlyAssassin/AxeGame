@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 [RequireComponent(typeof(FPSController))]
-public class test_shooting : MonoBehaviour {
+public class test_shooting : NetworkBehaviour {
 
     #region Data Information
+
+    public int damage = 50;
+
     [SerializeField]
     private float delay;
     [SerializeField]
@@ -29,6 +33,7 @@ public class test_shooting : MonoBehaviour {
     bool immune;
     bool homing;
 #endregion
+
     void Start()
     {
         thrown = false;
@@ -45,7 +50,8 @@ public class test_shooting : MonoBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
             {
-                Fire();
+                RpcFire();
+                CmdFire();
             }
         }
 
@@ -53,7 +59,8 @@ public class test_shooting : MonoBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
             {
-                ThreeFire();
+                RpcThreeFire();
+                CmdTri();
             }
         }
 
@@ -61,12 +68,14 @@ public class test_shooting : MonoBehaviour {
         {
             if (Input.GetKey(KeyCode.Mouse0) && thrown == false)
             {
-                HomingFire();
+                RpcHomingFire();
+                CmdHoming();
             }
         }
     }
 
-    void Fire()
+    [ClientRpc]
+    void RpcFire()
     {
         if (noCD == false)
         {
@@ -85,8 +94,28 @@ public class test_shooting : MonoBehaviour {
         }
     }
 
-    
-    void ThreeFire()
+    [Command]
+    void CmdFire()
+    {
+        if (noCD == false)
+        {
+            axe.SetActive(false);
+            Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
+            bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
+            thrown = true;
+            Invoke("AxeReset", reset);
+        }
+
+        else if (noCD == true)
+        {
+            axe.SetActive(false);
+            Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
+            bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
+        }
+    }
+
+    [ClientRpc]
+    void RpcThreeFire()
     {
         axe.SetActive(false);
         Rigidbody bulletClone2 = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * 1.2f, spawnPoint.transform.rotation);
@@ -99,7 +128,32 @@ public class test_shooting : MonoBehaviour {
         Invoke("AxeReset", reset);
     }
 
-    void HomingFire()
+    [Command]
+    void CmdTri()
+    {
+        axe.SetActive(false);
+        Rigidbody bulletClone2 = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * 1.2f, spawnPoint.transform.rotation);
+        Rigidbody bulletClone3 = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * -1.2f, spawnPoint.transform.rotation);
+        Rigidbody bulletClone = (Rigidbody)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
+        bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
+        bulletClone2.velocity = spawnPoint.transform.forward * bulletSpeed;
+        bulletClone3.velocity = spawnPoint.transform.forward * bulletSpeed;
+        thrown = true;
+        Invoke("AxeReset", reset);
+    }
+
+    [ClientRpc]
+    void RpcHomingFire()
+    {
+        axe.SetActive(false);
+        Rigidbody homingClone = (Rigidbody)Instantiate(axeHoming, spawnPoint.transform.position, spawnPoint.transform.rotation);
+        //bulletClone.velocity = spawnPoint.transform.forward * bulletSpeed;
+        thrown = true;
+        Invoke("AxeReset", reset);
+    }
+
+    [Command]
+    void CmdHoming()
     {
         axe.SetActive(false);
         Rigidbody homingClone = (Rigidbody)Instantiate(axeHoming, spawnPoint.transform.position, spawnPoint.transform.rotation);

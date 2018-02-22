@@ -47,6 +47,8 @@ GameObject:
   - component: {fileID: 114473944080931990}
   - component: {fileID: 114195590309940828}
   - component: {fileID: 114782630940099870}
+  - component: {fileID: 114951175403142974}
+  - component: {fileID: 114175538017887226}
   m_Layer: 13
   m_Name: Player
   m_TagString: Player
@@ -344,6 +346,22 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1148044066093986}
   m_Enabled: 1
+--- !u!114 &114175538017887226
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1334295179836350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74f0e6786f992ec4b9117d1ba4aaa028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _amount: 50
+  maxHealth: 100
+  disableOnDeath:
+  - {fileID: 114877941838471254}
+  - {fileID: 114635401528312362}
 --- !u!114 &114195590309940828
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -512,6 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93cf118d23e31cb4d89e6ee3282b8efb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 50
   delay: 10
   bulletSpeed: 22
   reset: 1.25
@@ -520,6 +539,17 @@ MonoBehaviour:
   axe: {fileID: 1573011911144324}
   axeHoming: {fileID: 54093719854427956, guid: eb9ef07ea1d32c048b8bc1e5a0c62992, type: 2}
   _jump: {fileID: 114635401528312362}
+--- !u!114 &114951175403142974
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1334295179836350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d73be2899925344b8750e07e1f2e489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!124 &124158402975421644
 Behaviour:
   m_ObjectHideFlags: 1

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4313199578465552}
   - component: {fileID: 114045790221320664}
   - component: {fileID: 54093719854427956}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: AxeHoming 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 65921468474961272}
   - component: {fileID: 114949452583596012}
   - component: {fileID: 54773606707534244}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: AxeHoming
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efb60315aedc22847b7873009e990f1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _target: {fileID: 0}
+  target: {fileID: 0}
   myTransform: {fileID: 4313199578465552}
+  speed: 18
 --- !u!114 &114949452583596012
 MonoBehaviour:
   m_ObjectHideFlags: 1

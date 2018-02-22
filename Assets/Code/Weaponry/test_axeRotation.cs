@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class test_axeRotation : MonoBehaviour {
+public class test_axeRotation : NetworkBehaviour {
 
     [SerializeField]
     private float speed;
@@ -29,14 +30,14 @@ public class test_axeRotation : MonoBehaviour {
         if (c.gameObject.tag == "Player")
         {
             print("hit");
-            Destroy(c.gameObject);
+            
             Destroy(gameObject);
         }
 
         if (c.gameObject.tag == "Target")
         {
             print("hit");
-            Destroy(c.gameObject);
+            //Destroy(c.gameObject);
             Destroy(gameObject);
         }
 
@@ -50,7 +51,7 @@ public class test_axeRotation : MonoBehaviour {
     {
         if (b.gameObject.gameObject.tag == "Target")
         {
-            Destroy(b.gameObject);
+            //Destroy(b.gameObject);
             Destroy(gameObject);
         }
     }
