@@ -7,12 +7,10 @@ public class test_axeRotation : MonoBehaviour {
     [SerializeField]
     private float speed;
 
-    bool hitActive;
 
     void Awake()
     {
         Destroy(gameObject,10f);
-        Invoke("HitActive", 0.1f);
     }
 
     // Update is called once per frame
@@ -26,29 +24,33 @@ public class test_axeRotation : MonoBehaviour {
         transform.Rotate(speed * Time.deltaTime, 0, 0);
     }
 
-    void HitActive()
-    {
-        hitActive = true;
-    }
-
     void OnCollisionEnter(Collision c)
     {
-        if (c.gameObject.tag == "Player" && hitActive == true)
+        if (c.gameObject.tag == "Player")
         {
             print("hit");
             Destroy(c.gameObject);
             Destroy(gameObject);
         }
 
-        if (c.gameObject.tag == "Target" && hitActive == true)
+        if (c.gameObject.tag == "Target")
         {
             print("hit");
-            //Destroy(c.gameObject);
+            Destroy(c.gameObject);
             Destroy(gameObject);
         }
 
         else if (c.gameObject.gameObject.layer == LayerMask.NameToLayer("Default"))
         {
+            Destroy(gameObject);
+        }
+    }
+
+    void OnTriggerEnter(Collider b)
+    {
+        if (b.gameObject.gameObject.tag == "Target")
+        {
+            Destroy(b.gameObject);
             Destroy(gameObject);
         }
     }

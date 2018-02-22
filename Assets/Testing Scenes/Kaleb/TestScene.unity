@@ -787,7 +787,7 @@ GameObject:
   - component: {fileID: 176621375}
   m_Layer: 10
   m_Name: NoCoolDown
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2334,7 +2334,7 @@ GameObject:
   - component: {fileID: 950140241}
   m_Layer: 11
   m_Name: HighJump
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2635,6 +2635,34 @@ Transform:
   - {fileID: 236780009}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1059426651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1059426652}
+  m_Layer: 0
+  m_Name: Random Powerup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1059426652
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1059426651}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14, y: 1, z: -4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2103248523}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1080574433
 Prefab:
@@ -2960,7 +2988,7 @@ GameObject:
   - component: {fileID: 1326183348}
   m_Layer: 9
   m_Name: TriShot
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3984,7 +4012,7 @@ GameObject:
   - component: {fileID: 1967770668}
   m_Layer: 12
   m_Name: Immune
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4169,8 +4197,8 @@ GameObject:
   - component: {fileID: 2080196935}
   - component: {fileID: 2080196934}
   m_Layer: 14
-  m_Name: NoCoolDown (1)
-  m_TagString: Untagged
+  m_Name: Locking
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4288,6 +4316,7 @@ Transform:
   - {fileID: 950140240}
   - {fileID: 1967770667}
   - {fileID: 2080196933}
+  - {fileID: 1059426652}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

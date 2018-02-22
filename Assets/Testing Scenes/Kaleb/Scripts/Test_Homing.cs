@@ -5,6 +5,8 @@ using UnityEngine;
 public class Test_Homing : MonoBehaviour {
 
     [SerializeField]
+    private GameObject _target;
+    [SerializeField]
     private Transform target;
     public Transform myTransform;
 
@@ -12,11 +14,16 @@ public class Test_Homing : MonoBehaviour {
 
     void Start()
     {
-        target = GameObject.FindWithTag("Player").transform;
+        _target = GameObject.FindWithTag("Player");
+        if (_target == null)
+            Destroy(gameObject);
+        if(_target != null)
+        target = _target.transform;
     }
-
 	// Update is called once per frame
 	void Update () {
+
+
 
         if (target != null)
         {
