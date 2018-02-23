@@ -16,7 +16,7 @@ public class test_shooting : NetworkBehaviour {
     [SerializeField]
     private float bulletSpeed = 10;
     [SerializeField]
-    private float reset;
+    private float resetTime;
     [SerializeField]
     private GameObject bullet;
     [SerializeField]
@@ -38,11 +38,14 @@ public class test_shooting : NetworkBehaviour {
     [SyncVar]
     bool homing;
     [SyncVar]
+    public float cdReset;
+    [SyncVar]
     public GameObject axe;
     #endregion
 
     void Start()
     {
+        cdReset = resetTime;
         thrown = false;
         noCD = false;
         triShot = false;
@@ -60,22 +63,25 @@ public class test_shooting : NetworkBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
             {
+                CmdAxeOff();
                 axe.SetActive(false);
+                RpcAxeOff();
                 if (noCD==false)
                     thrown = true;
                 CmdFire();
-                Invoke("CmdAxeReset", reset);
             }
         }
 
-            if (triShot == true)
-            {
+        if (triShot == true)
+        {
             if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
             {
+                CmdAxeOff();
+                RpcAxeOff();
                 axe.SetActive(false);
                 thrown = true;
                 CmdTri();
-                Invoke("AxeReset", reset);
+               
             }
         }
 
@@ -83,13 +89,66 @@ public class test_shooting : NetworkBehaviour {
         {
             if (Input.GetKey(KeyCode.Mouse0) && thrown == false)
             {
+                CmdAxeOff();
+                RpcAxeOff();
                 axe.SetActive(false);
                 thrown = true;
                 CmdHoming();
-                Invoke("AxeReset", reset);
+            }
+        }
+
+        if (thrown == true)
+        {
+            cdReset -= Time.deltaTime;
+            if(cdReset <= 0)
+            {
+                CmdAxeReset();
+                RpcAxeReset();
+                AxeReset();
+                thrown = false;
+                cdReset = resetTime;
             }
         }
     }
+
+    #region axe Reset
+    void AxeOff()
+    {
+        axe.SetActive(false);
+    }
+
+    [Command]
+    void CmdAxeOff()
+    {
+        AxeOff();
+    }
+
+    [ClientRpc]
+    void RpcAxeOff()
+    {
+        AxeOff();
+    }
+
+    void AxeReset()
+    {
+        axe.SetActive(true);
+        thrown = false;
+    }
+
+    [ClientRpc]
+    void RpcAxeReset()
+    {
+        axe.SetActive(true);
+        thrown = false;
+    }
+
+    [Command]
+    void CmdAxeReset()
+    {
+        axe.SetActive(true);
+        thrown = false;
+    }
+    #endregion
 
     [Command]
     void CmdFire()
@@ -156,13 +215,6 @@ public class test_shooting : NetworkBehaviour {
     {
         CmdAxeReset();
         noCD = false;
-    }
-
-    [Command]
-    void CmdAxeReset()
-    {
-        axe.SetActive(true);
-        thrown = false;
     }
 
     void TriReset()

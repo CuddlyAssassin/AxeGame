@@ -527,13 +527,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 50
   delay: 10
-  bulletSpeed: 22
-  reset: 1.25
+  bulletSpeed: 25
+  resetTime: 1.25
   bullet: {fileID: 1891505502891438, guid: 16a15d753bff36049b83d24fd346000a, type: 2}
   spawnPoint: {fileID: 1515095039814242}
   axeHoming: {fileID: 1725639588666382, guid: eb9ef07ea1d32c048b8bc1e5a0c62992, type: 2}
   _jump: {fileID: 114635401528312362}
   _hp: {fileID: 114928375986965860}
+  cdReset: 0
   axe: {fileID: 1387481047488654}
 --- !u!114 &114928375986965860
 MonoBehaviour:
