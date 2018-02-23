@@ -49,17 +49,16 @@ public class PlayerHealth : NetworkBehaviour {
         SetDefaults();
     } 
 
-    [Client]
     void OnCollisionEnter(Collision b)
     {
         if (b.gameObject.gameObject.layer == LayerMask.NameToLayer("Axe") && immune == false)
         {
-            RpcTakeDamage();
+            CmdTakeDamage();
         }
     }
 
-    [ClientRpc]
-    public void RpcTakeDamage()
+    [Command]
+    public void CmdTakeDamage()
     {
         if (isDead)
             return;

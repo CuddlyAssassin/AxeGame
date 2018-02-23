@@ -27,13 +27,16 @@ public class test_shooting : NetworkBehaviour {
     private FPSController _jump;
     [SerializeField]
     private PlayerHealth _hp;
-
+    [SyncVar]
     bool thrown;
+    [SyncVar]
     bool noCD;
+    [SyncVar]
     bool triShot;
+    [SyncVar]
     bool immune;
+    [SyncVar]
     bool homing;
-
     [SyncVar]
     public GameObject axe;
     #endregion
@@ -53,29 +56,39 @@ public class test_shooting : NetworkBehaviour {
     {
         if (!isLocalPlayer)
             return;
-            if (triShot == false && homing == false)
+        if (triShot == false && homing == false)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
             {
-                if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
-                {
-                    CmdFire();
-                }
+                axe.SetActive(false);
+                if (noCD==false)
+                    thrown = true;
+                CmdFire();
+                Invoke("CmdAxeReset", reset);
             }
+        }
 
             if (triShot == true)
             {
-                if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
-                {
-                    CmdTri();
-                }
-            }
-
-            if (homing == true)
+            if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
             {
-                if (Input.GetKey(KeyCode.Mouse0) && thrown == false)
-                {
-                    CmdHoming();
-                }
+                axe.SetActive(false);
+                thrown = true;
+                CmdTri();
+                Invoke("AxeReset", reset);
             }
+        }
+
+        if (homing == true)
+        {
+            if (Input.GetKey(KeyCode.Mouse0) && thrown == false)
+            {
+                axe.SetActive(false);
+                thrown = true;
+                CmdHoming();
+                Invoke("AxeReset", reset);
+            }
+        }
     }
 
     [Command]
@@ -89,7 +102,7 @@ public class test_shooting : NetworkBehaviour {
             force.velocity = spawnPoint.transform.forward * bulletSpeed;
             NetworkServer.Spawn(bulletClone);
             thrown = true;
-            Invoke("AxeReset", reset);
+            //Invoke("CmdAxeReset", reset);
         }
 
         else if (noCD == true)
@@ -119,7 +132,7 @@ public class test_shooting : NetworkBehaviour {
         force.velocity = spawnPoint.transform.forward * bulletSpeed;
         NetworkServer.Spawn(bulletClone);
         thrown = true;
-        Invoke("AxeReset", reset);
+        //Invoke("AxeReset", reset);
     }
 
     [Command]
@@ -129,7 +142,7 @@ public class test_shooting : NetworkBehaviour {
         GameObject homingClone = (GameObject)Instantiate(axeHoming, spawnPoint.transform.position, spawnPoint.transform.rotation);
         NetworkServer.Spawn(homingClone);
         thrown = true;
-        Invoke("AxeReset", reset);
+        //Invoke("AxeReset", reset);
     }
 
     void Immunity()
@@ -141,11 +154,12 @@ public class test_shooting : NetworkBehaviour {
     #region Reset Codes
     void CoolDownReset()
     {
-        AxeReset();
+        CmdAxeReset();
         noCD = false;
     }
 
-    void AxeReset()
+    [Command]
+    void CmdAxeReset()
     {
         axe.SetActive(true);
         thrown = false;
