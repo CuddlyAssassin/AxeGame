@@ -22,8 +22,6 @@ public class test_shooting : NetworkBehaviour {
     [SerializeField]
     private GameObject spawnPoint;
     [SerializeField]
-    private GameObject axe;
-    [SerializeField]
     private GameObject axeHoming;
     [SerializeField]
     private FPSController _jump;
@@ -35,7 +33,10 @@ public class test_shooting : NetworkBehaviour {
     bool triShot;
     bool immune;
     bool homing;
-#endregion
+
+    [SyncVar]
+    public GameObject axe;
+    #endregion
 
     void Start()
     {
@@ -50,67 +51,31 @@ public class test_shooting : NetworkBehaviour {
 
     void Update()
     {
-        if (triShot == false && homing == false)
-        {
-            if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
+        if (!isLocalPlayer)
+            return;
+            if (triShot == false && homing == false)
             {
-                Fire();
-
-                if (!isLocalPlayer)
-                    return;
-
+                if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
+                {
                     CmdFire();
+                }
             }
-        }
 
-        if (triShot == true)
-        {
-            if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
+            if (triShot == true)
             {
-                ThreeFire();
-
-                if (!isLocalPlayer)
-                    return;
-
-                CmdTri();
+                if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
+                {
+                    CmdTri();
+                }
             }
-        }
 
-        if (homing == true)
-        {
-            if (Input.GetKey(KeyCode.Mouse0) && thrown == false)
+            if (homing == true)
             {
-                HomingFire();
-
-                if (!isLocalPlayer)
-                    return;
-
-                CmdHoming();
+                if (Input.GetKey(KeyCode.Mouse0) && thrown == false)
+                {
+                    CmdHoming();
+                }
             }
-        }
-
-    }
-
-    [Client]
-    void Fire()
-    {
-        if (noCD == false)
-        {
-            axe.SetActive(false);
-            GameObject bulletClone = Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
-            Rigidbody force = bulletClone.GetComponent<Rigidbody>();
-            force.velocity = spawnPoint.transform.forward * bulletSpeed;
-            thrown = true;
-            Invoke("AxeReset", reset);
-        }
-
-        else if (noCD == true)
-        {
-            axe.SetActive(false);
-            GameObject bulletClone = Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
-            Rigidbody force = bulletClone.GetComponent<Rigidbody>();
-            force.velocity = spawnPoint.transform.forward * bulletSpeed;
-        }
     }
 
     [Command]
@@ -120,9 +85,9 @@ public class test_shooting : NetworkBehaviour {
         {
             axe.SetActive(false);
             GameObject bulletClone = Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
-            NetworkServer.Spawn(bulletClone);
             Rigidbody force = bulletClone.GetComponent<Rigidbody>();
             force.velocity = spawnPoint.transform.forward * bulletSpeed;
+            NetworkServer.Spawn(bulletClone);
             thrown = true;
             Invoke("AxeReset", reset);
         }
@@ -131,29 +96,10 @@ public class test_shooting : NetworkBehaviour {
         {
             axe.SetActive(false);
             GameObject bulletClone = Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
-            NetworkServer.Spawn(bulletClone);
             Rigidbody force = bulletClone.GetComponent<Rigidbody>();
             force.velocity = spawnPoint.transform.forward * bulletSpeed;
+            NetworkServer.Spawn(bulletClone);
         }
-    }
-
-
-    [Client]
-    void ThreeFire()
-    {
-        axe.SetActive(false);
-        GameObject bulletClone2 = (GameObject)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * 1.2f, spawnPoint.transform.rotation);
-        Rigidbody force2 = bulletClone2.GetComponent<Rigidbody>();
-        force2.velocity = spawnPoint.transform.forward * bulletSpeed;
-        GameObject bulletClone3 = (GameObject)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * -1.2f, spawnPoint.transform.rotation);
-        Rigidbody force3 = bulletClone3.GetComponent<Rigidbody>();
-        force3.velocity = spawnPoint.transform.forward * bulletSpeed;
-        GameObject bulletClone = (GameObject)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
-        Rigidbody force = bulletClone.GetComponent<Rigidbody>();
-        force.velocity = spawnPoint.transform.forward * bulletSpeed;
-
-        thrown = true;
-        Invoke("AxeReset", reset);
     }
 
     [Command]
@@ -161,28 +107,17 @@ public class test_shooting : NetworkBehaviour {
     {
         axe.SetActive(false);
         GameObject bulletClone2 = (GameObject)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * 1.2f, spawnPoint.transform.rotation);
-        NetworkServer.Spawn(bulletClone2);
         Rigidbody force2 = bulletClone2.GetComponent<Rigidbody>();
         force2.velocity = spawnPoint.transform.forward * bulletSpeed;
+        NetworkServer.Spawn(bulletClone2);
         GameObject bulletClone3 = (GameObject)Instantiate(bullet, spawnPoint.transform.position + spawnPoint.transform.right * -1.2f, spawnPoint.transform.rotation);
-        NetworkServer.Spawn(bulletClone3);
         Rigidbody force3 = bulletClone3.GetComponent<Rigidbody>();
         force3.velocity = spawnPoint.transform.forward * bulletSpeed;
+        NetworkServer.Spawn(bulletClone3);
         GameObject bulletClone = (GameObject)Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation);
-        NetworkServer.Spawn(bulletClone);
         Rigidbody force = bulletClone.GetComponent<Rigidbody>();
         force.velocity = spawnPoint.transform.forward * bulletSpeed;
-
-        thrown = true;
-        Invoke("AxeReset", reset);
-    }
-
-    [Client]
-    void HomingFire()
-    {
-        axe.SetActive(false);
-        GameObject homingClone = (GameObject)Instantiate(axeHoming, spawnPoint.transform.position, spawnPoint.transform.rotation);
-        NetworkServer.Spawn(homingClone);
+        NetworkServer.Spawn(bulletClone);
         thrown = true;
         Invoke("AxeReset", reset);
     }
