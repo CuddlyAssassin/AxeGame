@@ -415,6 +415,8 @@ MonoBehaviour:
   - {fileID: 114635401528312362}
   - {fileID: 20637700745408976}
   - {fileID: 81704500124177406}
+  playerUIPrefab: {fileID: 1165798432782564, guid: 5b19f895acd7287498d803e637031a12,
+    type: 2}
 --- !u!114 &114447690634669730
 MonoBehaviour:
   m_ObjectHideFlags: 1
