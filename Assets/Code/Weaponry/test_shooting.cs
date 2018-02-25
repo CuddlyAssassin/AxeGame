@@ -65,7 +65,6 @@ public class test_shooting : NetworkBehaviour {
             {
                 CmdAxeOff();
                 axe.SetActive(false);
-                RpcAxeOff();
                 if (noCD==false)
                     thrown = true;
                 CmdFire();
@@ -77,7 +76,6 @@ public class test_shooting : NetworkBehaviour {
             if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
             {
                 CmdAxeOff();
-                RpcAxeOff();
                 axe.SetActive(false);
                 thrown = true;
                 CmdTri();
@@ -90,7 +88,6 @@ public class test_shooting : NetworkBehaviour {
             if (Input.GetKey(KeyCode.Mouse0) && thrown == false)
             {
                 CmdAxeOff();
-                RpcAxeOff();
                 axe.SetActive(false);
                 thrown = true;
                 CmdHoming();
@@ -103,7 +100,6 @@ public class test_shooting : NetworkBehaviour {
             if(cdReset <= 0)
             {
                 CmdAxeReset();
-                RpcAxeReset();
                 AxeReset();
                 thrown = false;
                 cdReset = resetTime;
@@ -123,20 +119,7 @@ public class test_shooting : NetworkBehaviour {
         AxeOff();
     }
 
-    [ClientRpc]
-    void RpcAxeOff()
-    {
-        AxeOff();
-    }
-
     void AxeReset()
-    {
-        axe.SetActive(true);
-        thrown = false;
-    }
-
-    [ClientRpc]
-    void RpcAxeReset()
     {
         axe.SetActive(true);
         thrown = false;
@@ -278,6 +261,12 @@ public class test_shooting : NetworkBehaviour {
             print("Homing Axes");
             Destroy(b.gameObject);
             Invoke("HomingReset", delay);
+        }
+
+        if(b.gameObject.gameObject.layer == LayerMask.NameToLayer("RestoreHp"))
+        {
+            _hp.Heal();
+            Destroy(b.gameObject);
         }
     }
     #endregion

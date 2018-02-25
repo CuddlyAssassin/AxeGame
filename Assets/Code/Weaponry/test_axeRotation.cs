@@ -16,11 +16,6 @@ public class test_axeRotation : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        WeaponThrow();
-    }
-
-    void WeaponThrow()
-    {
         transform.Rotate(speed * Time.deltaTime, 0, 0);
     }
 
@@ -29,14 +24,12 @@ public class test_axeRotation : MonoBehaviour {
         if (c.gameObject.tag == "Player")
         {
             print("hit");
-            
             Destroy(gameObject);
         }
 
         if (c.gameObject.tag == "Target")
         {
             print("hit");
-            //Destroy(c.gameObject);
             Destroy(gameObject);
         }
 

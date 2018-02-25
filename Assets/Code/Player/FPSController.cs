@@ -18,6 +18,8 @@ public class FPSController : MonoBehaviour {
     [SerializeField]
     private float jumpMultiplier = 4f;
 
+    [SerializeField]
+    private GameObject shootPoint;
 
     CharacterController player;
 
@@ -60,6 +62,7 @@ public class FPSController : MonoBehaviour {
             {
                 sprinting = false;
                 movementSpeed = movementSpeed - speedMultiplier;
+                shootPoint.transform.localPosition = new Vector3(0, -0.1f, 1.6f);
             }
         }
 
@@ -85,12 +88,14 @@ public class FPSController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.LeftShift) && sprinting == false && player.isGrounded == true)
         {
             movementSpeed = movementSpeed + speedMultiplier;
+            shootPoint.transform.localPosition = new Vector3(0, -0.1f, 2);
             sprinting = true;
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift) && sprinting == true)
         {
             movementSpeed = movementSpeed - speedMultiplier;
+            shootPoint.transform.localPosition = new Vector3(0, -0.1f, 1.6f);
             sprinting = false;
         }
     }

@@ -6,6 +6,8 @@ using System.Collections;
 public class PlayerHealth : NetworkBehaviour {
 
     public int _amount = 50;
+    public int _hpGive = 50;
+    [SyncVar]
     bool immune = false;
 
     [SyncVar]
@@ -53,13 +55,16 @@ public class PlayerHealth : NetworkBehaviour {
     {
         if (b.gameObject.gameObject.layer == LayerMask.NameToLayer("Axe") && immune == false)
         {
-            CmdTakeDamage();
+            TakeDamage();
         }
     }
 
-    [Command]
-    public void CmdTakeDamage()
+    
+    public void TakeDamage()
     {
+        if (!isServer)
+            return;
+
         if (isDead)
             return;
 
@@ -69,13 +74,30 @@ public class PlayerHealth : NetworkBehaviour {
 
         if (currentHealth <= 0)
         {
-            Die();
+            RpcDie();
         }
     }
 
-    private void Die()
+    public void Heal()
     {
+        if (!isServer)
+            return;
+
+        if(currentHealth != 100)
+        {
+            currentHealth += _hpGive;
+        }
+    }
+
+    [ClientRpc]
+    private void RpcDie()
+    {
+        if (!isLocalPlayer)
+            return;
+
         isDead = true;
+
+        gameObject.tag = "Untagged";
 
         for (int i = 0; i < disableOnDeath.Length; i++)
         {
@@ -99,6 +121,7 @@ public class PlayerHealth : NetworkBehaviour {
         Transform _spawnPoint = NetworkManager.singleton.GetStartPosition();
         transform.position = _spawnPoint.position;
         transform.rotation = _spawnPoint.rotation;
+        gameObject.tag = "Player";
     }
 
     public void SetDefaults()
