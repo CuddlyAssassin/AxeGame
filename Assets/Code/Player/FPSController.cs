@@ -49,11 +49,12 @@ public class FPSController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        if (PauseMenu.IsOn)
+            return;
+
         Movement();
 
         Sprint();
-
-        MouseLock();
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -134,23 +135,6 @@ public class FPSController : MonoBehaviour {
             vertVelocity += Physics.gravity.y * Time.deltaTime;
             vertVelocity = Mathf.Clamp(vertVelocity, -999999, jumpForce);
             hasJumped = false;
-        }
-    }
-
-    void MouseLock()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && locked == true)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            locked = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape) && locked == false)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            locked = true;
         }
     }
 }

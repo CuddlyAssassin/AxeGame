@@ -59,6 +59,13 @@ public class test_shooting : NetworkBehaviour {
     {
         if (!isLocalPlayer)
             return;
+
+        if (PauseMenu.IsOn)
+            return;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         if (triShot == false && homing == false)
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && thrown == false)
