@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerManager))]
 [RequireComponent(typeof(PlayerHealth))]
@@ -8,11 +9,20 @@ public class PlayerSetup : NetworkBehaviour {
     [SerializeField]
     Behaviour[] componentsToDisable;
 
+    [SerializeField]
+    private Text playerName;
+
     Camera sceneCamera;
 
     [SerializeField]
     GameObject playerUIPrefab;
     private GameObject playerUIInstance;
+
+    void LateUpdate()
+    {
+        CmdPlayerName();
+        PlayerName();
+    }
 
     void Start()
     {
@@ -29,12 +39,23 @@ public class PlayerSetup : NetworkBehaviour {
             {
                 sceneCamera.gameObject.SetActive(false);
             }
-
             playerUIInstance = Instantiate(playerUIPrefab);
             playerUIInstance.name = playerUIPrefab.name;
         }
 
         GetComponent<PlayerHealth>().Setup();
+    }
+
+    [Command]
+    void CmdPlayerName()
+    {
+        playerName.text = transform.name;
+    }
+
+    [Client]
+    void PlayerName()
+    {
+        playerName.text = transform.name; 
     }
 
     public override void OnStartClient()

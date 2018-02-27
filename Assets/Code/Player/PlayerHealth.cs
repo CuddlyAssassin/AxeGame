@@ -11,6 +11,11 @@ public class PlayerHealth : NetworkBehaviour {
     public bool immune = false;
 
     [SyncVar]
+    float respawnTimer;
+
+    float resTime = 3f;
+
+    [SyncVar]
     private bool _isDead = false;
     public bool isDead
     {
@@ -27,6 +32,8 @@ public class PlayerHealth : NetworkBehaviour {
     [SerializeField]
     private Behaviour[] disableOnDeath;
     private bool[] wasEnabled;
+
+    public Transform[] spawnPoints;
 
     public void Immunity()
     {
@@ -48,6 +55,23 @@ public class PlayerHealth : NetworkBehaviour {
         SetDefaults();
     }
     
+    void Start()
+    {
+        respawnTimer = resTime;
+    }
+
+    void Update()
+    {
+        if (respawnTimer <= 0)
+        {
+            RpcRespawn();
+        }
+
+        if (currentHealth <= 0)
+        {
+            respawnTimer -= Time.deltaTime;
+        }
+    }
 
     public void TakeDamage()
     {
@@ -98,19 +122,17 @@ public class PlayerHealth : NetworkBehaviour {
             _col.enabled = false;
 
         Debug.Log(transform.name + " is DEAD!");
-
-        StartCoroutine(Respawn());
     }
 
-    private IEnumerator Respawn()
+    [ClientRpc]
+    void RpcRespawn()
     {
-        yield return new WaitForSeconds(3f);
-
         SetDefaults();
-        Transform _spawnPoint = NetworkManager.singleton.GetStartPosition();
-        transform.position = _spawnPoint.position;
-        transform.rotation = _spawnPoint.rotation;
+        Transform _spawn = (spawnPoints[Random.Range(0, spawnPoints.Length)]);
+        transform.position = _spawn.transform.position;
+        transform.rotation = _spawn.transform.rotation;
         gameObject.tag = "Player";
+        respawnTimer = resTime;
     }
 
     public void SetDefaults()
