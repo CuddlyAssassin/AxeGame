@@ -1735,7 +1735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 0}
-  showGUI: 0
+  showGUI: 1
   offsetX: 0
   offsetY: 0
 --- !u!114 &500332016
@@ -1758,7 +1758,7 @@ MonoBehaviour:
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 1334295179836350, guid: 2f229ae140f6f2d4293e9610279efeb2,
+  m_PlayerPrefab: {fileID: 1063439621897734, guid: 6a6af15b34b3b554a8fae5c488a3105e,
     type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 1

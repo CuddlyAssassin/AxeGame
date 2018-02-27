@@ -19,6 +19,8 @@ public class JoinGame : MonoBehaviour {
 
     private NetworkManager networkManager;
 
+    bool clicked = false;
+
     void Start()
     {
         networkManager = NetworkManager.singleton;
@@ -35,14 +37,26 @@ public class JoinGame : MonoBehaviour {
 
     public void RefreshRoomList()
     {
-        ClearRoomList();
-        networkManager.matchMaker.ListMatches(0, 20, "", true, 0, 0, OnMatchList);
-        status.text = "Loading...";
+        if (clicked == false)
+        {
+            clicked = true;
+            ClearRoomList();
+            networkManager.matchMaker.ListMatches(0, 20, "", true, 0, 0, OnMatchList);
+            status.text = "Loading...";
+        }
+        
+    }
+
+    public void LanClient()
+    {
+        networkManager.StartClient();
     }
 
     public void OnMatchList(bool success, string extendedInfo, List<MatchInfoSnapshot> matchList)
     {
         status.text = "";
+
+        clicked = false;
 
         if (!success || matchList == null)
         {

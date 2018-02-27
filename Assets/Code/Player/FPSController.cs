@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(test_shooting))]
 public class FPSController : MonoBehaviour {
 
     [SerializeField]
