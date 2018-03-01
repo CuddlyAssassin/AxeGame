@@ -27,7 +27,6 @@ public class PauseMenu : NetworkBehaviour {
     public void LeaveRoom()
     {
         MatchInfo matchInfo = networkManager.matchInfo;
-        networkManager.StopClient();
         networkManager.matchMaker.DropConnection(matchInfo.networkId, matchInfo.nodeId, 0, networkManager.OnDropConnection);
         networkManager.StopHost();
         IsOn = false;
