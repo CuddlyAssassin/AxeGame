@@ -21,16 +21,16 @@ public class AxeDamage : MonoBehaviour {
     {
         if (c.gameObject.tag == "Player")
         {
-            PlayerHealth hit = c.gameObject.GetComponent<PlayerHealth>();
-            hit.TakeDamage();
+            c.gameObject.GetComponent<PlayerHealth>().TakeDamage();
+            c.gameObject.GetComponent<AudioSource>().Play();
             print("hit");
             Destroy(gameObject);
         }
 
         if (c.gameObject.tag == "Target")
         {
-            PlayerHealth hit = c.gameObject.GetComponent<PlayerHealth>();
-            hit.TakeDamage();
+            c.gameObject.GetComponent<PlayerHealth>().TakeDamage();
+            c.gameObject.GetComponent<AudioSource>().Play();
             Destroy(gameObject);
         }
 

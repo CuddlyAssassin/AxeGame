@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
+using UnityEngine.UI;
 
 
 public class PlayerHealth : NetworkBehaviour {
@@ -11,9 +12,9 @@ public class PlayerHealth : NetworkBehaviour {
     public bool immune = false;
 
     [SyncVar]
-    float respawnTimer;
+    int respawnTimer;
 
-    float resTime = 3f;
+    int resTime = 150;
 
     [SyncVar]
     private bool _isDead = false;
@@ -30,8 +31,16 @@ public class PlayerHealth : NetworkBehaviour {
     private int currentHealth;
 
     [SerializeField]
+    private Text hpText;
+
+    [SerializeField]
     private Behaviour[] disableOnDeath;
     private bool[] wasEnabled;
+
+    [SerializeField]
+    private GameObject deathCanvas;
+    [SerializeField]
+    private Text deathTimer;
 
     public Transform[] spawnPoints;
 
@@ -58,9 +67,10 @@ public class PlayerHealth : NetworkBehaviour {
     void Start()
     {
         respawnTimer = resTime;
+        deathTimer.text = respawnTimer.ToString("f0");
     }
 
-    void Update()
+    void LateUpdate()
     {
         if (respawnTimer <= 0)
         {
@@ -69,7 +79,18 @@ public class PlayerHealth : NetworkBehaviour {
 
         if (currentHealth <= 0)
         {
-            respawnTimer -= Time.deltaTime;
+            respawnTimer -= 1;
+            //deathTimer.text = respawnTimer.ToString("f0");
+            if (respawnTimer >= 100)
+            {
+                deathTimer.text = "Respawning in: 3";
+            }else if (respawnTimer >= 50 && respawnTimer <= 99)
+            {
+                deathTimer.text = "Respawning in: 2";
+            }else if (respawnTimer >= 0 && respawnTimer <= 49)
+            {
+                deathTimer.text = "Respawning in: 1";
+            }
         }
     }
 
@@ -82,6 +103,8 @@ public class PlayerHealth : NetworkBehaviour {
             return;
 
         currentHealth -= _amount;
+
+        hpText.text = "Hp: " + currentHealth.ToString("f0");
 
         Debug.Log(transform.name + " Now has " + currentHealth + " health.");
 
@@ -99,6 +122,7 @@ public class PlayerHealth : NetworkBehaviour {
         if(currentHealth != 100)
         {
             currentHealth += _hpGive;
+            hpText.text = "Hp: " + currentHealth.ToString("f0");
         }
     }
 
@@ -109,6 +133,10 @@ public class PlayerHealth : NetworkBehaviour {
             return;
 
         isDead = true;
+
+        hpText.text = "Hp: 0";
+
+        deathCanvas.SetActive(true);
 
         gameObject.tag = "Untagged";
 
@@ -128,11 +156,13 @@ public class PlayerHealth : NetworkBehaviour {
     void RpcRespawn()
     {
         SetDefaults();
+        deathCanvas.SetActive(false);
         Transform _spawn = (spawnPoints[Random.Range(0, spawnPoints.Length)]);
         transform.position = _spawn.transform.position;
         transform.rotation = _spawn.transform.rotation;
         gameObject.tag = "Player";
         respawnTimer = resTime;
+        deathTimer.text = respawnTimer.ToString("f0");
     }
 
     public void SetDefaults()
@@ -145,6 +175,8 @@ public class PlayerHealth : NetworkBehaviour {
         {
             disableOnDeath[i].enabled = wasEnabled[i];
         }
+
+        hpText.text = "Hp: " + currentHealth.ToString("f0");
 
         CharacterController _col = GetComponent<CharacterController>();
         if (_col != null)
