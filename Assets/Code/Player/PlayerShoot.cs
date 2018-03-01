@@ -58,9 +58,12 @@ public class PlayerShoot : NetworkBehaviour {
                 CmdAxeOff();
                 AxeOff();
                 axeVisual.SetActive(false);
-                if (_noCD == false)
-                    _thrown = true;
                 CmdFire();
+                if (_noCD == false)
+                {
+                    _thrown = true;
+                }
+                    
             }
         }
 

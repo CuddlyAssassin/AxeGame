@@ -6,6 +6,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(PlayerHealth))]
 public class PlayerSetup : NetworkBehaviour {
 
+    public static bool NameTag = false;
+
     [SerializeField]
     Behaviour[] componentsToDisable;
 
@@ -20,8 +22,11 @@ public class PlayerSetup : NetworkBehaviour {
 
     void LateUpdate()
     {
-        CmdPlayerName();
-        PlayerName();
+        if (NameTag == true)
+        {
+            CmdPlayerName();
+            PlayerName();
+        }
     }
 
     void Start()
@@ -50,12 +55,14 @@ public class PlayerSetup : NetworkBehaviour {
     void CmdPlayerName()
     {
         playerName.text = transform.name;
+        NameTag = false;
     }
 
     [Client]
     void PlayerName()
     {
-        playerName.text = transform.name; 
+        playerName.text = transform.name;
+        NameTag = false;
     }
 
     public override void OnStartClient()
