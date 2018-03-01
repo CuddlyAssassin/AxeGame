@@ -22,11 +22,8 @@ public class PlayerSetup : NetworkBehaviour {
 
     void LateUpdate()
     {
-        if (NameTag == true)
-        {
-            CmdPlayerName();
-            PlayerName();
-        }
+        CmdPlayerName();
+        PlayerName();
     }
 
     void Start()
