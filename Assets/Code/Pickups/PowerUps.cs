@@ -6,9 +6,6 @@ using UnityEngine.Networking;
 public class PowerUps : MonoBehaviour {
 
     [SerializeField]
-    private GameObject pickupSound;
-
-    [SerializeField]
     private float powerUpTimer;
     [SerializeField]
     private FPSController _jump;
@@ -28,18 +25,11 @@ public class PowerUps : MonoBehaviour {
         shotScript = gameObject.GetComponent<PlayerShoot>();
     }
 
-    void PickUp()
-    {
-        GameObject sound = (GameObject)Instantiate(pickupSound, transform.position, transform.rotation);
-        NetworkServer.Spawn(sound);
-    }
-
     void OnTriggerEnter(Collider b)
     {
         if (b.gameObject.gameObject.layer == LayerMask.NameToLayer("NoCoolDown"))
         {
             NoCoolDown();
-            PickUp();
             Destroy(b.gameObject);
             Invoke("PowerUpReset", powerUpTimer);
         }
@@ -47,7 +37,6 @@ public class PowerUps : MonoBehaviour {
         if (b.gameObject.gameObject.layer == LayerMask.NameToLayer("TriShot"))
         {
             TrippleShot();
-            PickUp();
             Destroy(b.gameObject);
             Invoke("PowerUpReset", powerUpTimer);
         }
@@ -55,14 +44,12 @@ public class PowerUps : MonoBehaviour {
         if (b.gameObject.gameObject.layer == LayerMask.NameToLayer("HighJump"))
         {
             _jump.HighJump();
-            PickUp();
             Destroy(b.gameObject);
         }
 
         if (b.gameObject.gameObject.layer == LayerMask.NameToLayer("Immunity"))
         {
             gameObject.tag = "Untagged";
-            PickUp();
             Destroy(b.gameObject);
             Invoke("PowerUpReset", powerUpTimer);
         }
@@ -70,7 +57,6 @@ public class PowerUps : MonoBehaviour {
         if (b.gameObject.gameObject.layer == LayerMask.NameToLayer("Homing"))
         {
             HomingShot();
-            PickUp();
             Destroy(b.gameObject);
             Invoke("PowerUpReset", powerUpTimer);
         }
@@ -78,7 +64,6 @@ public class PowerUps : MonoBehaviour {
         if (b.gameObject.gameObject.layer == LayerMask.NameToLayer("RestoreHp"))
         {
             _hp.Heal();
-            PickUp();
             Destroy(b.gameObject);
         }
     }

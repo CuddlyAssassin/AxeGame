@@ -32,7 +32,7 @@ GameObject:
   - component: {fileID: 114470822238170112}
   - component: {fileID: 114939736398984686}
   - component: {fileID: 114565902426569444}
-  - component: {fileID: 82060186556574436}
+  - component: {fileID: 82817244962649400}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Player
@@ -481,7 +481,7 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1209096431496324}
   m_Enabled: 1
---- !u!82 &82060186556574436
+--- !u!82 &82817244962649400
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -492,7 +492,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 440dca685ffbefa44b92816f4c026f3b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -501,7 +501,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 45
+  MaxDistance: 40
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -727,8 +727,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1917c39441866749aeb228e610191ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupSound: {fileID: 1681881846371478, guid: 33b02d90eeeca254b82c93e6353ef4ba,
-    type: 2}
   powerUpTimer: 10
   _jump: {fileID: 114113054888557534}
   _hp: {fileID: 114705463001621728}

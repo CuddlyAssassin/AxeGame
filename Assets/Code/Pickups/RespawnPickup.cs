@@ -22,6 +22,7 @@ public class RespawnPickup : NetworkBehaviour {
         if (transform.childCount == 0 && respawn == false)
         {
             respawn = true;
+            GetComponent<AudioSource>().Play();
             Invoke("Spawning", delay);
         }
 
