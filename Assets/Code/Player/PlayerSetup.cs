@@ -20,6 +20,11 @@ public class PlayerSetup : NetworkBehaviour {
     GameObject playerUIPrefab;
     private GameObject playerUIInstance;
 
+    [SerializeField]
+    GameObject playerHPCanvas;
+    private GameObject playerHPinstance;
+
+
     void LateUpdate()
     {
         CmdPlayerName();
@@ -41,8 +46,10 @@ public class PlayerSetup : NetworkBehaviour {
             {
                 sceneCamera.gameObject.SetActive(false);
             }
+
             playerUIInstance = Instantiate(playerUIPrefab);
             playerUIInstance.name = playerUIPrefab.name;
+
         }
 
         GetComponent<PlayerHealth>().Setup();

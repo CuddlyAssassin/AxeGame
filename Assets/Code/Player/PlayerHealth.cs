@@ -60,12 +60,12 @@ public class PlayerHealth : NetworkBehaviour {
         {
             wasEnabled[i] = disableOnDeath[i].enabled;
         }
-
         SetDefaults();
     }
     
     void Start()
     {
+
         respawnTimer = resTime;
         deathTimer.text = respawnTimer.ToString("f0");
     }
