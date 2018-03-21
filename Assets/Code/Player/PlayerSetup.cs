@@ -24,6 +24,7 @@ public class PlayerSetup : NetworkBehaviour {
     GameObject playerHPCanvas;
     private GameObject playerHPinstance;
 
+    PlayerHealth hp;
 
     void LateUpdate()
     {
@@ -49,6 +50,8 @@ public class PlayerSetup : NetworkBehaviour {
 
             playerUIInstance = Instantiate(playerUIPrefab);
             playerUIInstance.name = playerUIPrefab.name;
+
+            playerHPinstance = Instantiate(playerHPCanvas);
 
         }
 

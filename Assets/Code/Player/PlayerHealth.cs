@@ -30,17 +30,15 @@ public class PlayerHealth : NetworkBehaviour {
     [SyncVar]
     private int currentHealth;
 
-    [SerializeField]
-    private Text hpText;
+    public GameObject deathCanvas;
+    public Text deathTimer;
+
+    public GameObject playerCanvas;
+    public Text hpText;
 
     [SerializeField]
     private Behaviour[] disableOnDeath;
     private bool[] wasEnabled;
-
-    [SerializeField]
-    private GameObject deathCanvas;
-    [SerializeField]
-    private Text deathTimer;
 
     public Transform[] spawnPoints;
 
@@ -65,7 +63,6 @@ public class PlayerHealth : NetworkBehaviour {
     
     void Start()
     {
-
         respawnTimer = resTime;
         deathTimer.text = respawnTimer.ToString("f0");
     }
@@ -84,10 +81,12 @@ public class PlayerHealth : NetworkBehaviour {
             if (respawnTimer >= 100)
             {
                 deathTimer.text = "Respawning in: 3";
-            }else if (respawnTimer >= 50 && respawnTimer <= 99)
+            }
+            else if (respawnTimer >= 50 && respawnTimer <= 99)
             {
                 deathTimer.text = "Respawning in: 2";
-            }else if (respawnTimer >= 0 && respawnTimer <= 49)
+            }
+            else if (respawnTimer >= 0 && respawnTimer <= 49)
             {
                 deathTimer.text = "Respawning in: 1";
             }
