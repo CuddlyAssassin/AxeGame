@@ -34,9 +34,4 @@ public class HostGame : MonoBehaviour {
     {
         networkManager.StartHost();
     }
-
-    public void QuitGame()
-    {
-        Application.Quit();
-    } 
 }
