@@ -907,10 +907,10 @@ MonoBehaviour:
   - {fileID: 81062167178002482}
   - {fileID: 114714584329406230}
   - {fileID: 114929189242528162}
+  - {fileID: 223539510629691232}
   playerName: {fileID: 114183964529916304}
   playerUIPrefab: {fileID: 1165798432782564, guid: 5b19f895acd7287498d803e637031a12,
     type: 2}
-  playerHPCanvas: {fileID: 1140812751970108}
 --- !u!114 &114939736398984686
 MonoBehaviour:
   m_ObjectHideFlags: 1
