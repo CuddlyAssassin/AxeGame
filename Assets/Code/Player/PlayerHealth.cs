@@ -30,17 +30,15 @@ public class PlayerHealth : NetworkBehaviour {
     [SyncVar]
     private int currentHealth;
 
-    [SerializeField]
-    private Text hpText;
+    public GameObject deathCanvas;
+    public Text deathTimer;
+
+    public GameObject playerCanvas;
+    public Text hpText;
 
     [SerializeField]
     private Behaviour[] disableOnDeath;
     private bool[] wasEnabled;
-
-    [SerializeField]
-    private GameObject deathCanvas;
-    [SerializeField]
-    private Text deathTimer;
 
     public Transform[] spawnPoints;
 
@@ -65,29 +63,29 @@ public class PlayerHealth : NetworkBehaviour {
     
     void Start()
     {
-
         respawnTimer = resTime;
-        deathTimer.text = respawnTimer.ToString("f0");
+        deathTimer.text = respawnTimer.ToString();
     }
 
     void LateUpdate()
     {
         if (respawnTimer <= 0)
         {
-            RpcRespawn();
+            Respawn();
         }
 
         if (currentHealth <= 0)
         {
             respawnTimer -= 1;
-            //deathTimer.text = respawnTimer.ToString("f0");
             if (respawnTimer >= 100)
             {
                 deathTimer.text = "Respawning in: 3";
-            }else if (respawnTimer >= 50 && respawnTimer <= 99)
+            }
+            else if (respawnTimer >= 50 && respawnTimer <= 99)
             {
                 deathTimer.text = "Respawning in: 2";
-            }else if (respawnTimer >= 0 && respawnTimer <= 49)
+            }
+            else if (respawnTimer >= 0 && respawnTimer <= 49)
             {
                 deathTimer.text = "Respawning in: 1";
             }
@@ -96,38 +94,32 @@ public class PlayerHealth : NetworkBehaviour {
 
     public void TakeDamage()
     {
-        if (!isServer)
-            return;
 
         if (isDead)
             return;
 
         currentHealth -= _amount;
 
-        hpText.text = "Hp: " + currentHealth.ToString("f0");
+        hpText.text = "Hp: " + currentHealth.ToString();
 
         Debug.Log(transform.name + " Now has " + currentHealth + " health.");
 
         if (currentHealth <= 0)
         {
-            RpcDie();
+            Die();
         }
     }
 
     public void Heal()
     {
-        if (!isServer)
-            return;
-
         if(currentHealth != 100)
         {
             currentHealth += _hpGive;
-            hpText.text = "Hp: " + currentHealth.ToString("f0");
+            hpText.text = "Hp: " + currentHealth.ToString();
         }
     }
 
-    [ClientRpc]
-    private void RpcDie()
+    private void Die()
     {
         if (!isLocalPlayer)
             return;
@@ -152,8 +144,8 @@ public class PlayerHealth : NetworkBehaviour {
         Debug.Log(transform.name + " is DEAD!");
     }
 
-    [ClientRpc]
-    void RpcRespawn()
+    [Command]
+    void CmdRespawn()
     {
         SetDefaults();
         deathCanvas.SetActive(false);
@@ -162,7 +154,20 @@ public class PlayerHealth : NetworkBehaviour {
         transform.rotation = _spawn.transform.rotation;
         gameObject.tag = "Player";
         respawnTimer = resTime;
-        deathTimer.text = respawnTimer.ToString("f0");
+        deathTimer.text = respawnTimer.ToString();
+    }
+
+    void Respawn()
+    {
+        SetDefaults();
+        deathCanvas.SetActive(false);
+        Transform _spawn = (spawnPoints[Random.Range(0, spawnPoints.Length)]);
+        transform.position = _spawn.transform.position;
+        transform.rotation = _spawn.transform.rotation;
+        gameObject.tag = "Player";
+        respawnTimer = resTime;
+        deathTimer.text = respawnTimer.ToString();
+        CmdRespawn();
     }
 
     public void SetDefaults()

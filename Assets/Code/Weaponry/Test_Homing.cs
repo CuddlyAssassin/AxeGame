@@ -9,7 +9,6 @@ public class Test_Homing : MonoBehaviour
     private GameObject _target;
     [SerializeField]
     private Transform target;
-    public Transform myTransform;
 
     [SerializeField]
     private float rotSpeed;
@@ -48,17 +47,19 @@ public class Test_Homing : MonoBehaviour
     {
         if (c.gameObject.tag == "Player")
         {
-            print("hit");
+            c.gameObject.GetComponent<PlayerHealth>().TakeDamage();
+            c.gameObject.GetComponent<AudioSource>().Play();
             Destroy(gameObject);
         }
 
         if (c.gameObject.tag == "Target")
         {
-            print("hit");
+            c.gameObject.GetComponent<PlayerHealth>().TakeDamage();
+            c.gameObject.GetComponent<AudioSource>().Play();
             Destroy(gameObject);
         }
 
-        else if (c.gameObject.gameObject.layer == LayerMask.NameToLayer("Default"))
+        if (c.gameObject.tag == "Untagged")
         {
             Destroy(gameObject);
         }
@@ -66,9 +67,28 @@ public class Test_Homing : MonoBehaviour
 
     void OnTriggerEnter(Collider b)
     {
-        if (b.gameObject.gameObject.tag == "PickUp")
+        if (b.gameObject.tag == "PickUp")
         {
             Destroy(b.gameObject);
+            Destroy(gameObject);
+        }
+        if (b.gameObject.tag == "Player")
+        {
+            b.gameObject.GetComponent<PlayerHealth>().TakeDamage();
+            b.gameObject.GetComponent<AudioSource>().Play();
+            print("hit");
+            Destroy(gameObject);
+        }
+
+        if (b.gameObject.tag == "Target")
+        {
+            b.gameObject.GetComponent<PlayerHealth>().TakeDamage();
+            b.gameObject.GetComponent<AudioSource>().Play();
+            Destroy(gameObject);
+        }
+
+        if (b.gameObject.tag == "Untagged")
+        {
             Destroy(gameObject);
         }
     }

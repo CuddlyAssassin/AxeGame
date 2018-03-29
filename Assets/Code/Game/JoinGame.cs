@@ -68,6 +68,7 @@ public class JoinGame : MonoBehaviour {
         {
             GameObject _roomListItemGO = Instantiate(roomListItemPrefab);
             _roomListItemGO.transform.SetParent(roomListPartent);
+            _roomListItemGO.transform.localScale = new Vector3(1, 1, 1);
 
             RoomListItem _roomListItem = _roomListItemGO.GetComponent<RoomListItem>();
             if (_roomListItem != null)
@@ -99,5 +100,10 @@ public class JoinGame : MonoBehaviour {
         networkManager.matchMaker.JoinMatch(_match.networkId, "", "", "", 0, 0, networkManager.OnMatchJoined);
         ClearRoomList();
         status.text = "Joining Match...";
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
