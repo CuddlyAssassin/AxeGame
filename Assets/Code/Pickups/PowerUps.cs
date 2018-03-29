@@ -14,10 +14,6 @@ public class PowerUps : MonoBehaviour {
     [SerializeField]
     private PlayerShoot shotScript;
 
-    bool immune = false;
-    bool highJump = false;
-    bool hpRestore = false;
-
     void Start()
     {
         _jump = gameObject.GetComponent<FPSController>();

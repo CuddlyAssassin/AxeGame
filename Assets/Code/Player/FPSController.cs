@@ -34,18 +34,14 @@ public class FPSController : MonoBehaviour {
     float rotY;
 
     private bool hasJumped;
-    bool highJump;
 
     bool sprinting;
-    bool locked;
 
 	// Use this for initialization
 	void Start () {
         player = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        locked = true;
-        highJump = false;
     }
 	
 	// Update is called once per frame
@@ -76,13 +72,11 @@ public class FPSController : MonoBehaviour {
     void JumpReset()
     {
         jumpForce = jumpForce - jumpMultiplier;
-        highJump = false;
     }
 
     public void HighJump()
     {
         jumpForce = jumpForce + jumpMultiplier;
-        highJump = true;
         Invoke("JumpReset", 10f); 
     }
 
