@@ -22,6 +22,16 @@ public class FPSController : MonoBehaviour {
     private float baseRange;
     [SerializeField]
     private GameObject shootPoint;
+    [SerializeField]
+    private float fallR;
+    [SerializeField]
+    private float movementLRSpeed = 4;
+
+    bool check;
+
+    bool moving;
+
+    private float gravityMultiplier;
 
     private bool sprintKey;
 
@@ -39,6 +49,7 @@ public class FPSController : MonoBehaviour {
 
     bool sprinting;
 
+
 	// Use this for initialization
 	void Start () {
         player = GetComponent<CharacterController>();
@@ -46,6 +57,8 @@ public class FPSController : MonoBehaviour {
         Cursor.visible = false;
         sprintKey = false;
         sprinting = false;
+        moving = false;
+        check = false;
     }
 	
 	// Update is called once per frame
@@ -60,6 +73,10 @@ public class FPSController : MonoBehaviour {
 
         SprintCheck();
 
+        MovementCheck();
+
+        SideStep();
+
         if (Input.GetButtonDown("Jump"))
         {
             hasJumped = true;
@@ -67,6 +84,7 @@ public class FPSController : MonoBehaviour {
             {
                 sprinting = false;
                 movementSpeed = movementSpeed - speedMultiplier;
+                fallR = fallR + 0.7f;
                 shootPoint.transform.localPosition = new Vector3(0, -0.1f, baseRange);
             }
         }
@@ -75,6 +93,7 @@ public class FPSController : MonoBehaviour {
 
     }
 
+    #region Movement Mechanics
     void SprintCheck()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -84,22 +103,12 @@ public class FPSController : MonoBehaviour {
             sprintKey = false;
     }
 
-    void JumpReset()
-    {
-        jumpForce = jumpForce - jumpMultiplier;
-    }
-
-    public void HighJump()
-    {
-        jumpForce = jumpForce + jumpMultiplier;
-        Invoke("JumpReset", 10f); 
-    }
-
     void Sprint()
     {
         if (sprintKey == true && sprinting == false && player.isGrounded == true)
         {
             movementSpeed = movementSpeed + speedMultiplier;
+            fallR = fallR - 0.7f;
             shootPoint.transform.localPosition = new Vector3(0, -0.1f, addRange);
             sprinting = true;
         }
@@ -107,6 +116,7 @@ public class FPSController : MonoBehaviour {
         if (sprintKey == false && sprinting == true)
         {
             movementSpeed = movementSpeed - speedMultiplier;
+            fallR = fallR + 0.7f;
             shootPoint.transform.localPosition = new Vector3(0, -0.1f, baseRange);
             sprinting = false;
         }
@@ -115,7 +125,7 @@ public class FPSController : MonoBehaviour {
     void Movement()
     {
         moveFB = Input.GetAxisRaw("Vertical") * movementSpeed;
-        moveLR = Input.GetAxisRaw("Horizontal") * movementSpeed;
+        moveLR = Input.GetAxisRaw("Horizontal") * movementLRSpeed;
         rotX = Input.GetAxisRaw("Mouse X") * sensitivity;
         rotY -= Input.GetAxisRaw("Mouse Y") * sensitivity;
         rotY = Mathf.Clamp(rotY, -rotateLimit, rotateLimit);
@@ -128,6 +138,53 @@ public class FPSController : MonoBehaviour {
         player.Move(movement * Time.deltaTime);
     }
 
+    void MovementCheck()
+    {
+        if (Input.GetKeyDown(KeyCode.W) && moving == false)
+        {
+            moving = true;
+        } else if (Input.GetKeyUp(KeyCode.W) && moving == true)
+        {
+            moving = false;
+        }
+        if (Input.GetKeyDown(KeyCode.S) && moving == false)
+        {
+            moving = true;
+        } else if (Input.GetKeyUp(KeyCode.S) && moving == true)
+        {
+            moving = false;
+        }
+
+    }
+
+    void SideStep()
+    {
+        if (moving == true && check == false)
+        {
+            movementLRSpeed = movementLRSpeed - speedMultiplier;
+            check = true;
+        }
+
+        if (moving == false && check == true)
+        {
+            movementLRSpeed = movementLRSpeed + speedMultiplier;
+            check = false;
+        }
+    }
+    #endregion
+
+    #region Jumping Mechanics
+    void JumpReset()
+    {
+        jumpForce = jumpForce - jumpMultiplier;
+    }
+
+    public void HighJump()
+    {
+        jumpForce = jumpForce + jumpMultiplier;
+        Invoke("JumpReset", 10f); 
+    }
+
     private void ApplyGravity()
     {
         if (player.isGrounded == true)
@@ -135,6 +192,7 @@ public class FPSController : MonoBehaviour {
             if (hasJumped == false)
             {
                 vertVelocity = Physics.gravity.y;
+                gravityMultiplier = fallR;
             }
             else
             {
@@ -143,9 +201,11 @@ public class FPSController : MonoBehaviour {
         }
         else
         {
-            vertVelocity += Physics.gravity.y * Time.deltaTime;
+            gravityMultiplier += Time.deltaTime;
+            vertVelocity += Physics.gravity.y * Time.deltaTime * gravityMultiplier;
             vertVelocity = Mathf.Clamp(vertVelocity, -999999, jumpForce);
             hasJumped = false;
         }
     }
+    #endregion
 }
