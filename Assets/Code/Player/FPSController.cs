@@ -23,6 +23,8 @@ public class FPSController : MonoBehaviour {
     [SerializeField]
     private GameObject shootPoint;
 
+    private bool sprintKey;
+
     CharacterController player;
 
     public GameObject cam;
@@ -42,6 +44,8 @@ public class FPSController : MonoBehaviour {
         player = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        sprintKey = false;
+        sprinting = false;
     }
 	
 	// Update is called once per frame
@@ -53,6 +57,8 @@ public class FPSController : MonoBehaviour {
         Movement();
 
         Sprint();
+
+        SprintCheck();
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -69,6 +75,15 @@ public class FPSController : MonoBehaviour {
 
     }
 
+    void SprintCheck()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            sprintKey = true;
+
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+            sprintKey = false;
+    }
+
     void JumpReset()
     {
         jumpForce = jumpForce - jumpMultiplier;
@@ -82,14 +97,14 @@ public class FPSController : MonoBehaviour {
 
     void Sprint()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && sprinting == false && player.isGrounded == true)
+        if (sprintKey == true && sprinting == false && player.isGrounded == true)
         {
             movementSpeed = movementSpeed + speedMultiplier;
             shootPoint.transform.localPosition = new Vector3(0, -0.1f, addRange);
             sprinting = true;
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftShift) && sprinting == true)
+        if (sprintKey == false && sprinting == true)
         {
             movementSpeed = movementSpeed - speedMultiplier;
             shootPoint.transform.localPosition = new Vector3(0, -0.1f, baseRange);
