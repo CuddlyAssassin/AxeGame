@@ -8,8 +8,6 @@ public class HostGame : MonoBehaviour {
 
     private string roomName;
 
-    public string customIP;
-
     [SerializeField]
 
     private NetworkManager networkManager;
@@ -24,17 +22,12 @@ public class HostGame : MonoBehaviour {
         roomName = _name;
     }
 
-    public void CustomIP(string _IP)
-    {
-        customIP = _IP;
-    }
-
     public void CreateRoom()
     {
         if (roomName != "" && roomName != null)
         {
             Debug.Log("Creating Room: " + roomName + " with room for " + roomSize + " players!");
-            networkManager.matchMaker.CreateMatch(roomName, roomSize, true, "", customIP, "", 0, 0, networkManager.OnMatchCreate);
+            networkManager.matchMaker.CreateMatch(roomName, roomSize, true, "", "", "", 0, 0, networkManager.OnMatchCreate);
             
         }
     }
