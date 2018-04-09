@@ -17,6 +17,8 @@ public class JoinGame : MonoBehaviour {
     [SerializeField]
     private Transform roomListPartent;
 
+    public string _customIP;
+
     private NetworkManager networkManager;
 
     bool clicked = false;
@@ -95,9 +97,14 @@ public class JoinGame : MonoBehaviour {
         roomList.Clear();
     }
 
+    public void CustomIP(string _IP)
+    {
+        _customIP = _IP;
+    }
+
     public void JoinRoom(MatchInfoSnapshot _match)
     {
-        networkManager.matchMaker.JoinMatch(_match.networkId, "", "", "", 0, 0, networkManager.OnMatchJoined);
+        networkManager.matchMaker.JoinMatch(_match.networkId, "", _customIP, "", 0, 0, networkManager.OnMatchJoined);
         ClearRoomList();
         status.text = "Joining Match...";
     }
