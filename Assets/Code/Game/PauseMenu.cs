@@ -28,8 +28,8 @@ public class PauseMenu : NetworkBehaviour {
     {
         IsOn = false;
         MatchInfo matchInfo = networkManager.matchInfo;
-        networkManager.matchMaker.DropConnection(matchInfo.networkId, matchInfo.nodeId, 0, networkManager.OnDropConnection);
         networkManager.StopHost();
+        networkManager.matchMaker.DropConnection(matchInfo.networkId, matchInfo.nodeId, 0, networkManager.OnDropConnection);
     }
 
     void TogglePauseMenu()
