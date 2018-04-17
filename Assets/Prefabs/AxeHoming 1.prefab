@@ -92,7 +92,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 236868880ae2f4003b7a5af8e4a494c7, type: 3}
+  - {fileID: 2100002, guid: 236868880ae2f4003b7a5af8e4a494c7, type: 3}
+  - {fileID: 2100004, guid: 236868880ae2f4003b7a5af8e4a494c7, type: 3}
+  - {fileID: 2100006, guid: 236868880ae2f4003b7a5af8e4a494c7, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -118,7 +120,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1780512780253642}
-  m_Mesh: {fileID: 4300000, guid: 236868880ae2f4003b7a5af8e4a494c7, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 236868880ae2f4003b7a5af8e4a494c7, type: 3}
 --- !u!54 &54127742934342644
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -159,8 +161,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.06813696, y: 0.99550855, z: 0.35861182}
-  m_Center: {x: 0.0000000018626451, y: 0.000000029802322, z: 0.000000007450581}
+  m_Size: {x: 0.06813696, y: 0.4680332, z: 0.35861182}
+  m_Center: {x: 0, y: 0.2637377, z: 0}
 --- !u!82 &82829980799180274
 AudioSource:
   m_ObjectHideFlags: 1

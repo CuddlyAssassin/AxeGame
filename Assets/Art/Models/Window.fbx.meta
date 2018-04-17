@@ -6,9 +6,15 @@ ModelImporter:
     100000: //RootNode
     400000: //RootNode
     2100000: lambert1
+    2100002: Window_glass
+    2100004: Fence_wood2
+    2100006: Window_blackc
+    2100008: BridgeCurved_Stone2
+    2100010: Fence_wood
     2300000: //RootNode
     3300000: //RootNode
     4300000: pCube19
+    4300002: pCube235
   externalObjects: {}
   materials:
     importMaterials: 1

@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4778173253619138}
-  - component: {fileID: 65557741909269536}
   m_Layer: 0
   m_Name: Scaff_planklong
   m_TagString: Untagged
@@ -37,6 +36,7 @@ GameObject:
   - component: {fileID: 4448101770113480}
   - component: {fileID: 33480978442889780}
   - component: {fileID: 23379674396154474}
+  - component: {fileID: 65680842248050696}
   m_Layer: 0
   m_Name: polySurface827
   m_TagString: Untagged
@@ -113,15 +113,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1507173746479182}
   m_Mesh: {fileID: 4300000, guid: 00f12e5af82b9ec40a32d41f996af439, type: 3}
---- !u!65 &65557741909269536
+--- !u!65 &65680842248050696
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1295133865006062}
+  m_GameObject: {fileID: 1507173746479182}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2, y: 0.099999994, z: 0.070563965}
+  m_Center: {x: 0, y: 0.049999997, z: 0}

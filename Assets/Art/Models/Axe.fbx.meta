@@ -16,8 +16,13 @@ ModelImporter:
     400008: transform1
     400010: transform2
     2100000: lambert1
+    2100002: Axe
+    2100004: axe_blae
+    2100006: axe_Handel
     2300000: pCube3
+    2300002: //RootNode
     3300000: pCube3
+    3300002: //RootNode
     4300000: pCube3
   externalObjects: {}
   materials:
