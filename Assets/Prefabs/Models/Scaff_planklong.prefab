@@ -9,45 +9,74 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1662144264594946}
+  m_RootGameObject: {fileID: 1295133865006062}
   m_IsPrefabParent: 1
---- !u!1 &1662144264594946
+--- !u!1 &1295133865006062
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4018919604339036}
-  - component: {fileID: 33340461380053108}
-  - component: {fileID: 23030284983323874}
-  - component: {fileID: 65770217576184716}
+  - component: {fileID: 4778173253619138}
+  - component: {fileID: 65557741909269536}
   m_Layer: 0
-  m_Name: Bench
+  m_Name: Scaff_planklong
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4018919604339036
+--- !u!1 &1507173746479182
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4448101770113480}
+  - component: {fileID: 33480978442889780}
+  - component: {fileID: 23379674396154474}
+  m_Layer: 0
+  m_Name: polySurface827
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4448101770113480
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1662144264594946}
+  m_GameObject: {fileID: 1507173746479182}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.00019155264, z: 0}
+  m_LocalPosition: {x: -2.7819514, y: -1.4250828, z: 1.8673979}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
+  m_Father: {fileID: 4778173253619138}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4778173253619138
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1295133865006062}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.7819514, y: 1.4250828, z: -1.8673979}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4448101770113480}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23030284983323874
+--- !u!23 &23379674396154474
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1662144264594946}
+  m_GameObject: {fileID: 1507173746479182}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -57,8 +86,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100002, guid: a8c7fd92aa2616f4b933b2ed1bfe0cb8, type: 3}
-  - {fileID: 2100004, guid: a8c7fd92aa2616f4b933b2ed1bfe0cb8, type: 3}
+  - {fileID: 2100002, guid: 00f12e5af82b9ec40a32d41f996af439, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -78,22 +106,22 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33340461380053108
+--- !u!33 &33480978442889780
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1662144264594946}
-  m_Mesh: {fileID: 4300000, guid: a8c7fd92aa2616f4b933b2ed1bfe0cb8, type: 3}
---- !u!65 &65770217576184716
+  m_GameObject: {fileID: 1507173746479182}
+  m_Mesh: {fileID: 4300000, guid: 00f12e5af82b9ec40a32d41f996af439, type: 3}
+--- !u!65 &65557741909269536
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1662144264594946}
+  m_GameObject: {fileID: 1295133865006062}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.0212631, y: 0.41695628, z: 0.4754846}
-  m_Center: {x: 0, y: 0.20804556, z: 0.000000044703484}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

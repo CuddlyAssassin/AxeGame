@@ -10,6 +10,8 @@ ModelImporter:
     400002: pPlane1
     400004: //RootNode
     2100000: lambert1
+    2100002: BridgeCurved_stone
+    2100004: lambert39
     2300000: pCube251
     2300002: pPlane1
     3300000: pCube251

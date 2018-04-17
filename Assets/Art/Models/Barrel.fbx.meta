@@ -7,6 +7,9 @@ ModelImporter:
     400000: //RootNode
     2100000: Barrel_Wood
     2100002: Barrel_Metal
+    2100004: Barrel_wood
+    2100006: Barrel_wood2
+    2100008: Barrel_metal
     2300000: //RootNode
     3300000: //RootNode
     4300000: pCylinder1
