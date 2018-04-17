@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4772505911857372}
   - component: {fileID: 33059607516329660}
   - component: {fileID: 23138455215948752}
+  - component: {fileID: 65607649896142970}
   m_Layer: 0
   m_Name: Ladder
   m_TagString: Untagged
@@ -84,3 +85,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1783518476317970}
   m_Mesh: {fileID: 4300000, guid: ced88a18630831e4fb127c42c3915861, type: 3}
+--- !u!65 &65607649896142970
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1783518476317970}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1591034, y: 3.642008, z: 0.18301538}
+  m_Center: {x: 0, y: 1.8027045, z: 0}

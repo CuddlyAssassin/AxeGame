@@ -26,10 +26,20 @@ public class FPSController : MonoBehaviour {
     private float fallR;
     [SerializeField]
     private float movementLRSpeed = 4;
+    [SerializeField]
+    private float recoveryLock = 0;
+    [SerializeField]
+    private float recoveryTime = 2f;
 
-    bool check;
+    bool _highJump = false;
 
-    bool moving;
+    bool jumpActive = false;
+    bool _recover = false;
+    bool jumpRecover = false;
+
+    bool check = false;
+
+    bool moving = false;
 
     private float gravityMultiplier;
 
@@ -57,8 +67,6 @@ public class FPSController : MonoBehaviour {
         Cursor.visible = false;
         sprintKey = false;
         sprinting = false;
-        moving = false;
-        check = false;
     }
 	
 	// Update is called once per frame
@@ -76,6 +84,10 @@ public class FPSController : MonoBehaviour {
         MovementCheck();
 
         SideStep();
+
+        SprintJumpCheck();
+
+        FallRecovery();
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -177,11 +189,14 @@ public class FPSController : MonoBehaviour {
     void JumpReset()
     {
         jumpForce = jumpForce - jumpMultiplier;
+        _highJump = false;
     }
 
     public void HighJump()
     {
+
         jumpForce = jumpForce + jumpMultiplier;
+        _highJump = true;
         Invoke("JumpReset", 10f); 
     }
 
@@ -207,5 +222,50 @@ public class FPSController : MonoBehaviour {
             hasJumped = false;
         }
     }
+    #endregion
+
+    #region Fall Recovery
+
+    void SprintJumpCheck()
+    {
+        if (sprintKey == true && player.isGrounded == true)
+        {
+            jumpActive = true;
+        }
+
+        if (sprintKey == false && player.isGrounded == true)
+        {
+            jumpActive = false;
+        }
+    }
+
+    void FallRecovery()
+    {
+        if (_highJump == false && recoveryLock < gravityMultiplier && jumpRecover == false && jumpActive == true)
+        {
+            _recover = true;
+        }
+
+        if (_recover == true && player.isGrounded == true)
+        {
+            movementSpeed = movementSpeed - jumpMultiplier;
+            movementLRSpeed = movementLRSpeed - speedMultiplier;
+            jumpForce = jumpForce - speedMultiplier;
+            Invoke("RecoveryReset", recoveryTime);
+            jumpRecover = true;
+            _recover = false;
+        }
+    }
+
+    void RecoveryReset()
+    {
+        movementSpeed = movementSpeed + jumpMultiplier;
+        movementLRSpeed = movementLRSpeed + speedMultiplier;
+        jumpForce = jumpForce + speedMultiplier;
+        jumpRecover = false;
+    }
+
+
+
     #endregion
 }

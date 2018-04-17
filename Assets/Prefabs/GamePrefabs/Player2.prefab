@@ -600,6 +600,8 @@ MonoBehaviour:
   shootPoint: {fileID: 1267681800652572}
   fallR: 1.2
   movementLRSpeed: 6
+  recoveryLock: 1.6
+  recoveryTime: 0.6
   cam: {fileID: 1209096431496324}
 --- !u!114 &114183964529916304
 MonoBehaviour:
