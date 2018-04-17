@@ -6,6 +6,11 @@ ModelImporter:
     100000: //RootNode
     400000: //RootNode
     2100000: lambert1
+    2100002: BridgeCurved_Stone3
+    2100004: Fence_wood
+    2100006: Fence_wood2
+    2100008: lambert40
+    2100010: Well_rope
     2300000: //RootNode
     3300000: //RootNode
     4300000: pCube27

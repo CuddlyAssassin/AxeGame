@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4165039961576458}
   - component: {fileID: 33176442682639664}
   - component: {fileID: 23386005100742946}
-  - component: {fileID: 64870972259189210}
+  - component: {fileID: 64062382524421384}
   m_Layer: 0
   m_Name: Bridge_Curved
   m_TagString: Untagged
@@ -35,8 +35,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1399560820829790}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -57,7 +57,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 6d86dd54d36c141689575de6e5224262, type: 3}
+  - {fileID: 2100002, guid: 6d86dd54d36c141689575de6e5224262, type: 3}
+  - {fileID: 2100004, guid: 6d86dd54d36c141689575de6e5224262, type: 3}
+  - {fileID: 2100006, guid: 6d86dd54d36c141689575de6e5224262, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,7 +86,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1399560820829790}
   m_Mesh: {fileID: 4300000, guid: 6d86dd54d36c141689575de6e5224262, type: 3}
---- !u!64 &64870972259189210
+--- !u!64 &64062382524421384
 MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

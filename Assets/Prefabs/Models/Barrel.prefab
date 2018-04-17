@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4786899605452980}
   - component: {fileID: 33860339587907144}
   - component: {fileID: 23851726501450946}
-  - component: {fileID: 65731469967249622}
+  - component: {fileID: 65684957929540458}
   m_Layer: 0
   m_Name: Barrel
   m_TagString: Untagged
@@ -35,8 +35,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1625999570970268}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -57,8 +57,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 2e10e2d0ba7e19148abd8ef9783e83d5, type: 3}
-  - {fileID: 2100002, guid: 2e10e2d0ba7e19148abd8ef9783e83d5, type: 3}
+  - {fileID: 2100004, guid: 2e10e2d0ba7e19148abd8ef9783e83d5, type: 3}
+  - {fileID: 2100006, guid: 2e10e2d0ba7e19148abd8ef9783e83d5, type: 3}
+  - {fileID: 2100008, guid: 2e10e2d0ba7e19148abd8ef9783e83d5, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,7 +86,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1625999570970268}
   m_Mesh: {fileID: 4300000, guid: 2e10e2d0ba7e19148abd8ef9783e83d5, type: 3}
---- !u!65 &65731469967249622
+--- !u!65 &65684957929540458
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

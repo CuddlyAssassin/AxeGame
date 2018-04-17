@@ -1,16 +1,28 @@
 fileFormatVersion: 2
-guid: 0de077a62087b4ca587df80a2a96738b
+guid: 3f82c6d843300934fb42d4f23ccc1365
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: polySurface807
+    100004: polySurface833
+    100006: polySurface942
     400000: //RootNode
+    400002: polySurface807
+    400004: polySurface833
+    400006: polySurface942
     2100000: lambert1
-    2100002: Fence_wood
+    2100002: lambert32
     2100004: Fence_wood2
+    2100006: Fence_wood
     2300000: //RootNode
+    2300002: polySurface833
+    2300004: polySurface942
     3300000: //RootNode
-    4300000: pCube14
+    3300002: polySurface833
+    3300004: polySurface942
+    4300000: polySurface942
+    4300002: polySurface833
   externalObjects: {}
   materials:
     importMaterials: 1

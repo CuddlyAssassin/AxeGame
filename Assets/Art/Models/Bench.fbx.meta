@@ -22,8 +22,12 @@ ModelImporter:
     400014: transform124
     400016: transform125
     2100000: lambert1
+    2100002: Bench_Stone
+    2100004: Bench_wood
     2300000: polySurface822
+    2300002: //RootNode
     3300000: polySurface822
+    3300002: //RootNode
     4300000: polySurface822
   externalObjects: {}
   materials:
