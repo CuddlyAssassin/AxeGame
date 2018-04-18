@@ -271,6 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
   target: {fileID: 0}
+  destroyed: {fileID: 1548711238052634, guid: 93740e47c76168c4c8ec3ca272a71906, type: 2}
   rotSpeed: 750
   speed: 18
   child: {fileID: 1780512780253642}

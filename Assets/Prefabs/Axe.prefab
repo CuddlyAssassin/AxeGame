@@ -225,6 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axeRotationSpeed: 7.5
+  destroyed: {fileID: 1548711238052634, guid: 93740e47c76168c4c8ec3ca272a71906, type: 2}
 --- !u!114 &114686388393595624
 MonoBehaviour:
   m_ObjectHideFlags: 1

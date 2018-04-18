@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class Test_Homing : MonoBehaviour
 {
@@ -9,7 +10,8 @@ public class Test_Homing : MonoBehaviour
     private GameObject _target;
     [SerializeField]
     private Transform target;
-
+    [SerializeField]
+    private GameObject destroyed;
     [SerializeField]
     private float rotSpeed;
 
@@ -61,6 +63,8 @@ public class Test_Homing : MonoBehaviour
 
         if (c.gameObject.tag == "Untagged")
         {
+            GameObject soundDestroy = (GameObject)Instantiate(destroyed, gameObject.transform.position, gameObject.transform.rotation);
+            NetworkServer.Spawn(soundDestroy);
             Destroy(gameObject);
         }
     }

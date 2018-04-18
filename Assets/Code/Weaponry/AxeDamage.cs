@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class AxeDamage : MonoBehaviour {
 
     [SerializeField]
     float axeRotationSpeed;
+
+    [SerializeField]
+    private GameObject destroyed;
 
     void Awake()
     {
@@ -36,6 +40,8 @@ public class AxeDamage : MonoBehaviour {
 
         if (c.gameObject.tag == "Untagged")
         {
+            GameObject soundDestroy = (GameObject)Instantiate(destroyed, gameObject.transform.position, gameObject.transform.rotation);
+            NetworkServer.Spawn(soundDestroy);
             Destroy(gameObject);
         }
     }

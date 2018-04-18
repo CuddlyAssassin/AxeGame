@@ -17,6 +17,9 @@ public class PlayerSetup : NetworkBehaviour {
     private Text playerName;
 
     [SerializeField]
+    private Text sensitivity;
+
+    [SerializeField]
     public GameObject slider;
 
     Camera sceneCamera;
