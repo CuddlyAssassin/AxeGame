@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FPSController : MonoBehaviour {
 
@@ -30,6 +31,7 @@ public class FPSController : MonoBehaviour {
     private float recoveryLock = 0;
     [SerializeField]
     private float recoveryTime = 2f;
+    public Slider control;
 
     bool _highJump = false;
 
@@ -59,6 +61,9 @@ public class FPSController : MonoBehaviour {
 
     bool sprinting;
 
+    [SerializeField]
+    public Text textSens;
+
 
 	// Use this for initialization
 	void Start () {
@@ -71,6 +76,8 @@ public class FPSController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        ControllerSpeed();
 
         if (PauseMenu.IsOn)
             return;
@@ -103,6 +110,12 @@ public class FPSController : MonoBehaviour {
 
         ApplyGravity();
 
+    }
+
+    public void ControllerSpeed()
+    {
+        sensitivity = control.value;
+        textSens.text = "Sensitivity: " + sensitivity.ToString();
     }
 
     #region Movement Mechanics

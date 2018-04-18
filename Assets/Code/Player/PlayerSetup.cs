@@ -8,11 +8,16 @@ public class PlayerSetup : NetworkBehaviour {
 
     public static bool NameTag = false;
 
+    public static bool TabIsOn = false;
+
     [SerializeField]
     Behaviour[] componentsToDisable;
 
     [SerializeField]
     private Text playerName;
+
+    [SerializeField]
+    public GameObject slider;
 
     Camera sceneCamera;
 
@@ -26,6 +31,20 @@ public class PlayerSetup : NetworkBehaviour {
     {
         CmdPlayerName();
         PlayerName();
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            TabIsOn = true;
+            slider.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            TabIsOn = false;
+            slider.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
     void Start()

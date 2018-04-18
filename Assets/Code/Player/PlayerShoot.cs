@@ -45,7 +45,7 @@ public class PlayerShoot : NetworkBehaviour {
         if (!isLocalPlayer)
             return;
 
-        if (PauseMenu.IsOn)
+        if (PauseMenu.IsOn || PlayerSetup.TabIsOn)
             return;
 
         Cursor.lockState = CursorLockMode.Locked;
