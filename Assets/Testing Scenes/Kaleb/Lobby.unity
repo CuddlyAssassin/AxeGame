@@ -3205,6 +3205,11 @@ Prefab:
       propertyPath: showGUI
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114336856646557208, guid: c1b7d986c09ea8145bfd55a8553a6f63,
+        type: 2}
+      propertyPath: m_UseWebSockets
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c1b7d986c09ea8145bfd55a8553a6f63, type: 2}
   m_IsPrefabParent: 0

@@ -49,8 +49,8 @@ public class JoinGame : MonoBehaviour {
 
     public void LanClient()
     {
-        networkManager.networkAddress = "Localhost";
-        networkManager.networkPort = 7777;
+        //networkManager.networkAddress = "LocalHost";
+        //networkManager.networkPort = 7777;
         networkManager.StartClient();
     }
 
