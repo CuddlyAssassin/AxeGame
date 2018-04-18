@@ -34,8 +34,8 @@ public class HostGame : MonoBehaviour {
 
     public void LocalCreateRoom()
     {
-        //networkManager.networkAddress = "localhost";
-        //networkManager.networkPort = 7777;
+        networkManager.networkAddress = "localhost";
+        networkManager.networkPort = 7777;
         networkManager.StartHost();
     }
 }
