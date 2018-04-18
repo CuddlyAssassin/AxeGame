@@ -1,15 +1,21 @@
 fileFormatVersion: 2
-guid: bc59cad967e046042881eadd82ea1e82
+guid: 1cc1f6724d70f72489aa93e4ffcc1e29
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
     2100000: lambert1
-    2100002: Tabel
+    2100002: Dummy_wood
+    2100004: Dummy_Metal
+    2100006: Dummy_wood2
+    2100008: lambert2
+    2100010: Cannon_Shell
+    2100012: Dummy_metal2
+    2100014: Fence_wood2
     2300000: //RootNode
     3300000: //RootNode
-    4300000: TreasureChest_0002:TreasureChest_0002:TreasureChest_0002:pCube2
+    4300000: pCylinder15
   externalObjects: {}
   materials:
     importMaterials: 1
