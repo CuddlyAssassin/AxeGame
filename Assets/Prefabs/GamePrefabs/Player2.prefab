@@ -407,7 +407,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1267681800652572}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.100000024, z: 1.6}
+  m_LocalPosition: {x: 0, y: -0.100000024, z: 1.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4783846375234956}
@@ -822,8 +822,8 @@ MonoBehaviour:
   jumpForce: 5
   speedMultiplier: 2
   jumpMultiplier: 4
-  addRange: 2.2
-  baseRange: 1.8
+  addRange: 1.8
+  baseRange: 1.4
   shootPoint: {fileID: 1267681800652572}
   fallR: 1.2
   movementLRSpeed: 6
@@ -1177,6 +1177,7 @@ MonoBehaviour:
   - {fileID: 114929189242528162}
   - {fileID: 223539510629691232}
   playerName: {fileID: 114183964529916304}
+  sensitivity: {fileID: 0}
   slider: {fileID: 1426811061137128}
   playerUIPrefab: {fileID: 1165798432782564, guid: 5b19f895acd7287498d803e637031a12,
     type: 2}

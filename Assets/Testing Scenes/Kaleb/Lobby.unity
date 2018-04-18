@@ -2035,7 +2035,7 @@ GameObject:
   - component: {fileID: 1101561180}
   - component: {fileID: 1101561179}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Online
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2477,7 +2477,7 @@ GameObject:
   - component: {fileID: 1322456574}
   - component: {fileID: 1322456573}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Local
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
