@@ -52,11 +52,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4212330719277150}
-  - component: {fileID: 65356133159157630}
   - component: {fileID: 114509064917233300}
   - component: {fileID: 82363455280200952}
+  - component: {fileID: 114231497461373404}
+  - component: {fileID: 65942841850741216}
   m_Layer: 0
-  m_Name: Trigger
+  m_Name: Command
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,7 +166,7 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 1cc1f6724d70f72489aa93e4ffcc1e29, type: 3}
---- !u!65 &65356133159157630
+--- !u!65 &65942841850741216
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -272,6 +273,38 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &114231497461373404
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1660673111115342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 69
+    i1: 139
+    i2: 73
+    i3: 217
+    i4: 23
+    i5: 32
+    i6: 30
+    i7: 84
+    i8: 106
+    i9: 142
+    i10: 83
+    i11: 119
+    i12: 147
+    i13: 195
+    i14: 15
+    i15: 81
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114509064917233300
 MonoBehaviour:
   m_ObjectHideFlags: 1

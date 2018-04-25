@@ -69,7 +69,6 @@ GameObject:
   - component: {fileID: 4188001301787176}
   - component: {fileID: 114336856646557208}
   - component: {fileID: 114186848548362088}
-  - component: {fileID: 114791070954585954}
   m_Layer: 0
   m_Name: _NetworkManager
   m_TagString: Untagged
@@ -215,6 +214,8 @@ MonoBehaviour:
   - {fileID: 1102144735685460, guid: 03983af6c0f007f4b97bf64f355ddb23, type: 2}
   - {fileID: 1817539253854866, guid: ddb4678e09cec614bb116c7dda8674a6, type: 2}
   - {fileID: 1897326778789208, guid: 1956cc071c0811f4ca44707a211dddca, type: 2}
+  - {fileID: 1548711238052634, guid: 93740e47c76168c4c8ec3ca272a71906, type: 2}
+  - {fileID: 1890492626349988, guid: b324ccb4d6aafc14f8de47528957ab16, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -270,16 +271,3 @@ MonoBehaviour:
   matchSize: 4
   isNetworkActive: 0
   matchMaker: {fileID: 0}
---- !u!114 &114791070954585954
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1977854648540478}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa622b1460343bf4eb3f5ee140f3a087, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roomSize: 4
-  networkManager: {fileID: 0}

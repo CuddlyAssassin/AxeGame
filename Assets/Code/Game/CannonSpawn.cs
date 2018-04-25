@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class CannonSpawn : MonoBehaviour {
+public class CannonSpawn : NetworkBehaviour {
 
     [SerializeField]
     private float cannonShootSpeed;
@@ -17,8 +17,7 @@ public class CannonSpawn : MonoBehaviour {
     [SerializeField]
     private GameObject spawnPoint;
 
-    [SerializeField]
-    private bool _shot = false;
+    bool _shot = false;
 
     private AudioSource fired;
 
@@ -47,12 +46,13 @@ public class CannonSpawn : MonoBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                Fire();
+                CmdFire();
             }
         }
     }
 
-    void Fire()
+    [Command]
+    void CmdFire()
     {
         _shot = true;
         fired.Play();
