@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 82378924945921626}
   - component: {fileID: 114784860886001332}
   - component: {fileID: 114919161570597312}
+  - component: {fileID: 114495363230612810}
   m_Layer: 0
   m_Name: AxeDestroyed
   m_TagString: Untagged
@@ -137,6 +138,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &114495363230612810
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1548711238052634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0569badc0ba9bb48a2360f55a0e2274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114784860886001332
 MonoBehaviour:
   m_ObjectHideFlags: 1
