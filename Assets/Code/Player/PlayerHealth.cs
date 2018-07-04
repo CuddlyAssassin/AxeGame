@@ -12,9 +12,9 @@ public class PlayerHealth : NetworkBehaviour {
     public bool immune = false;
 
     [SyncVar]
-    int respawnTimer;
+    float respawnTimer;
 
-    int resTime = 150;
+    float resTime = 3;
 
     [SyncVar]
     private bool _isDead = false;
@@ -76,19 +76,8 @@ public class PlayerHealth : NetworkBehaviour {
 
         if (currentHealth <= 0)
         {
-            respawnTimer -= 1;
-            if (respawnTimer >= 100)
-            {
-                deathTimer.text = "Respawning in: 3";
-            }
-            else if (respawnTimer >= 50 && respawnTimer <= 99)
-            {
-                deathTimer.text = "Respawning in: 2";
-            }
-            else if (respawnTimer >= 0 && respawnTimer <= 49)
-            {
-                deathTimer.text = "Respawning in: 1";
-            }
+            respawnTimer -= Time.smoothDeltaTime;
+            deathTimer.text = "Respawning in: " + respawnTimer.ToString("f2");
         }
     }
 

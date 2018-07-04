@@ -2,23 +2,49 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class PowerUps : MonoBehaviour {
 
     [SerializeField]
-    private float powerUpTimer;
+    private float puTimer;
+    [SerializeField]
+    private float puReset;
     [SerializeField]
     private FPSController _jump;
     [SerializeField]
     private PlayerHealth _hp;
     [SerializeField]
     private PlayerShoot shotScript;
+    [SerializeField]
+    private GameObject timerObj;
+
+    public Text timerText;
+
+    bool resetActivated = false;
 
     void Start()
     {
         _jump = gameObject.GetComponent<FPSController>();
         _hp = gameObject.GetComponent<PlayerHealth>();
         shotScript = gameObject.GetComponent<PlayerShoot>();
+        puTimer = puReset;
+    }
+
+    void Update()
+    {
+        if (resetActivated == true)
+        {
+            puTimer -= Time.smoothDeltaTime;
+            timerText.text = puTimer.ToString("f2");
+            if (puTimer <= 0)
+            {
+                timerObj.SetActive(false);
+                PowerUpReset();
+                resetActivated = false;
+                puTimer = puReset;
+            }
+        }
     }
 
     void OnTriggerEnter(Collider b)
@@ -27,14 +53,16 @@ public class PowerUps : MonoBehaviour {
         {
             NoCoolDown();
             Destroy(b.gameObject);
-            Invoke("PowerUpReset", powerUpTimer);
+            resetActivated = true;
+            timerObj.SetActive(true);
         }
 
         if (b.gameObject.gameObject.layer == LayerMask.NameToLayer("TriShot"))
         {
             TrippleShot();
             Destroy(b.gameObject);
-            Invoke("PowerUpReset", powerUpTimer);
+            resetActivated = true;
+            timerObj.SetActive(true);
         }
 
         if (b.gameObject.gameObject.layer == LayerMask.NameToLayer("HighJump"))
@@ -47,14 +75,16 @@ public class PowerUps : MonoBehaviour {
         {
             gameObject.tag = "Untagged";
             Destroy(b.gameObject);
-            Invoke("PowerUpReset", powerUpTimer);
+            resetActivated = true;
+            timerObj.SetActive(true);
         }
 
         if (b.gameObject.gameObject.layer == LayerMask.NameToLayer("Homing"))
         {
             HomingShot();
             Destroy(b.gameObject);
-            Invoke("PowerUpReset", powerUpTimer);
+            resetActivated = true;
+            timerObj.SetActive(true);
         }
 
         if (b.gameObject.gameObject.layer == LayerMask.NameToLayer("RestoreHp"))
